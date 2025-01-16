@@ -32,16 +32,17 @@ import (
 	"time"
 )
 
-// CsCourseProperty represents the GORM entity for the `cs_course_property` table.
-type CsCourseProperty struct {
-	CoursePropertyUUID string    `gorm:"type:char(32);primaryKey;comment:课程属性主键"`                                                    // 课程属性主键
-	Name               string    `gorm:"type:varchar(32);uniqueIndex:uk_course_property_name;not null;comment:课程属性名称"`               // 课程属性名称，唯一索引
-	Description        string    `gorm:"type:varchar(255);comment:课程属性描述"`                                                           // 课程属性描述
-	CreatedAt          time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:创建时间"`                             // 创建时间
-	UpdatedAt          time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;comment:更新时间"` // 更新时间
+// CsTablesChairsType represents the tables and chairs type table in the database.
+type CsTablesChairsType struct {
+	TablesChairsTypeUUID string    `gorm:"column:tables_chairs_type_uuid;primaryKey;type:char(32);not null;comment:桌椅类型主键"`
+	Name                 string    `gorm:"column:name;type:varchar(32);not null;comment:桌椅类型名称"`
+	Description          *string   `gorm:"column:description;type:varchar(255);comment:桌椅类型描述"`
+	Base64Img            *string   `gorm:"column:base64_img;type:text;comment:桌椅类型图片"`
+	CreatedAt            time.Time `gorm:"column:created_at;type:timestamp;default:CURRENT_TIMESTAMP;not null;comment:创建时间"`
+	UpdatedAt            time.Time `gorm:"column:updated_at;type:timestamp;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;not null;comment:更新时间"`
 }
 
-// TableName specifies the custom table name for the CsCourseProperty entity.
-func (CsCourseProperty) TableName() string {
-	return "cs_course_property"
+// TableName specifies the table name for the CsTablesChairsType model.
+func (CsTablesChairsType) TableName() string {
+	return "cs_tables_chairs_type"
 }

@@ -26,45 +26,22 @@
  * --------------------------------------------------------------------------------
  */
 
-package database
+package do
 
 import (
-	"fmt"
-	"frontleaves-table-install-cli/models/do"
-	"frontleaves-table-install-cli/utils"
+	"time"
 )
 
-// InitCampusData 初始化校区数据
-func (db *DbOperate) InitCampusData(name, description, address, code string) {
-	getUUID := utils.GenerateUUIDNoDash()
-	var campus = do.CsCampus{
-		CampusUUID:    getUUID,
-		CampusName:    name,
-		CampusDesc:    description,
-		CampusCode:    address,
-		CampusAddress: code,
-	}
-	tx := db.database.Create(&campus)
-	if tx.Error != nil {
-		panic("初始化校区数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 校区表 [%s-%s-%s] 成功\n", name, description, code)
-	}
+// CsClassroomTag represents the structure of the cs_classroom_tag table.
+type CsClassroomTag struct {
+	ClassTagUUID string    `gorm:"column:class_tag_uuid;type:char(32);primaryKey;not null" json:"class_tag_uuid"`                                     // 教室标签主键
+	Name         string    `gorm:"column:name;type:varchar(32);unique;not null" json:"name"`                                                          // 教室标签名称
+	Description  *string   `gorm:"column:description;type:varchar(255)" json:"description"`                                                           // 教室标签描述
+	CreatedAt    time.Time `gorm:"column:created_at;type:timestamp;default:CURRENT_TIMESTAMP;not null" json:"created_at"`                             // 创建时间
+	UpdatedAt    time.Time `gorm:"column:updated_at;type:timestamp;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;not null" json:"updated_at"` // 更新时间
 }
 
-func (db *DbOperate) InitBuildingData(name, campus string) {
-	var campusEntity = do.CsCampus{}
-	db.database.Where("campus_name = ?", campus).First(&campusEntity)
-
-	var building = do.CsBuilding{
-		BuildingUUID: utils.GenerateUUIDNoDash(),
-		BuildingName: name,
-		CampusUUID:   campusEntity.CampusUUID,
-	}
-	tx := db.database.Create(&building)
-	if tx.Error != nil {
-		panic("初始化教学楼数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 教学楼表 [%s-%s] 成功\n", building.BuildingName, campusEntity.CampusName)
-	}
+// TableName sets the table name for CsClassroomTag.
+func (CsClassroomTag) TableName() string {
+	return "cs_classroom_tag"
 }

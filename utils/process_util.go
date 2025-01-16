@@ -34,7 +34,22 @@ import (
 	"strings"
 )
 
-// GenerateCreateTableSQL 生成创建数据表的 SQL 语句
+// GenerateCreateTableSQL
+//
+// 该函数用于生成创建数据表的 SQL 语句，通过读取嵌入文件系统中的 SQL 文件来生成 SQL 语句。
+//
+// 用法示例：
+//
+//	GenerateCreateTableSQL("cs_system", resourcesFile)
+//
+// 参数说明：
+//
+//	table         string        数据表名称
+//	resourcesFile embed.FS      嵌入文件系统
+//
+// 返回值：
+//
+//	[]string 生成的 SQL 语句
 func GenerateCreateTableSQL(table string, resourcesFile embed.FS) []string {
 	file, err := resourcesFile.ReadFile("resources/sql/" + table + ".sql")
 	if err != nil {
@@ -54,7 +69,37 @@ func GenerateCreateTableSQL(table string, resourcesFile embed.FS) []string {
 	return split
 }
 
+// GenerateUUIDNoDash
+//
+// 该函数用于生成不带破折号的 UUID, 通过调用第三方库生成 UUID 并去除其中的破折号。
+//
+// 用法示例：
+//
+//	GenerateUUIDNoDash()
+//
+// 返回值：
+//
+//	string 生成的 UUID
 func GenerateUUIDNoDash() string {
 	getUUID := uuid.New()
 	return strings.ReplaceAll(getUUID.String(), "-", "")
+}
+
+// Ptr
+//
+// 该函数用于将字符串转换为指针类型。
+//
+// 用法示例：
+//
+//	Ptr("hello")
+//
+// 参数说明：
+//
+//	value string 需要转换的字符串
+//
+// 返回值：
+//
+//	*string 转换后的指针
+func Ptr(value string) *string {
+	return &value
 }

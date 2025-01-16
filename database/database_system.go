@@ -30,7 +30,7 @@ package database
 
 import (
 	"fmt"
-	"frontleaves-table-install-cli/entity/do"
+	"frontleaves-table-install-cli/models/do"
 	"frontleaves-table-install-cli/utils"
 )
 

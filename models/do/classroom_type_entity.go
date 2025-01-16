@@ -26,45 +26,22 @@
  * --------------------------------------------------------------------------------
  */
 
-package database
+package do
 
 import (
-	"fmt"
-	"frontleaves-table-install-cli/models/do"
-	"frontleaves-table-install-cli/utils"
+	"time"
 )
 
-// InitCampusData 初始化校区数据
-func (db *DbOperate) InitCampusData(name, description, address, code string) {
-	getUUID := utils.GenerateUUIDNoDash()
-	var campus = do.CsCampus{
-		CampusUUID:    getUUID,
-		CampusName:    name,
-		CampusDesc:    description,
-		CampusCode:    address,
-		CampusAddress: code,
-	}
-	tx := db.database.Create(&campus)
-	if tx.Error != nil {
-		panic("初始化校区数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 校区表 [%s-%s-%s] 成功\n", name, description, code)
-	}
+// CsClassroomType 教室类型表
+type CsClassroomType struct {
+	ClassTypeUUID string    `gorm:"column:class_type_uuid;primaryKey;type:char(32);not null;comment:'教室类型主键'" json:"class_type_uuid"`
+	Name          string    `gorm:"column:name;unique;type:varchar(32);not null;comment:'教室类型名称'" json:"name"`
+	Description   string    `gorm:"column:description;type:varchar(255);comment:'教室类型描述'" json:"description"`
+	CreatedAt     time.Time `gorm:"column:created_at;type:timestamp;default:CURRENT_TIMESTAMP;not null;comment:'创建时间'" json:"created_at"`
+	UpdatedAt     time.Time `gorm:"column:updated_at;type:timestamp;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;not null;comment:'更新时间'" json:"updated_at"`
 }
 
-func (db *DbOperate) InitBuildingData(name, campus string) {
-	var campusEntity = do.CsCampus{}
-	db.database.Where("campus_name = ?", campus).First(&campusEntity)
-
-	var building = do.CsBuilding{
-		BuildingUUID: utils.GenerateUUIDNoDash(),
-		BuildingName: name,
-		CampusUUID:   campusEntity.CampusUUID,
-	}
-	tx := db.database.Create(&building)
-	if tx.Error != nil {
-		panic("初始化教学楼数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 教学楼表 [%s-%s] 成功\n", building.BuildingName, campusEntity.CampusName)
-	}
+// TableName 指定表名为 cs_classroom_type
+func (CsClassroomType) TableName() string {
+	return "cs_classroom_type"
 }

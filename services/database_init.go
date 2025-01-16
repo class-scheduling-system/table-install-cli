@@ -31,7 +31,9 @@ package services
 import (
 	"embed"
 	"frontleaves-table-install-cli/database"
+	"frontleaves-table-install-cli/utils"
 	"github.com/pelletier/go-toml"
+	"time"
 )
 
 func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
@@ -94,4 +96,89 @@ func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
 	operate.InitBuildingData("技能训练中心", "库尔勒校区")
 	operate.InitBuildingData("综合教学楼", "库尔勒校区")
 	operate.InitBuildingData("车间", "库尔勒校区")
+
+	// 初始化 cs_classroom_type 数据表
+	operate.InitClassroomTypeData("多媒体教室", "配备多媒体设备的教室")
+	operate.InitClassroomTypeData("实训车间", "用于实践技能训练的车间")
+	operate.InitClassroomTypeData("机房", "配备计算机的教室")
+	operate.InitClassroomTypeData("汽修实训室", "用于汽车维修技能训练的教室")
+	operate.InitClassroomTypeData("琴房", "用于音乐教学的教室")
+	operate.InitClassroomTypeData("美术教室", "用于美术课程教学的教室")
+	operate.InitClassroomTypeData("舞蹈教室", "用于舞蹈课程教学的教室")
+	operate.InitClassroomTypeData("声乐教室", "用于声乐课程教学的教室")
+	operate.InitClassroomTypeData("化工仿真实训室", "用于化工专业仿真训练的教室")
+	operate.InitClassroomTypeData("虚拟仿真实训室", "用于虚拟仿真教学的教室")
+	operate.InitClassroomTypeData("自动化生产线实训室", "用于自动化生产线技能训练的教室")
+	operate.InitClassroomTypeData("液压气动实训室", "用于液压气动专业技能训练的教室")
+	operate.InitClassroomTypeData("电工实训室", "用于电工技能训练的教室")
+	operate.InitClassroomTypeData("网络实训室", "用于网络技能训练的教室")
+	operate.InitClassroomTypeData("幼儿保健室", "用于幼儿保健教学的教室")
+	operate.InitClassroomTypeData("机械装调实训室", "用于机械装配与调试技能训练的教室")
+	operate.InitClassroomTypeData("网络综合布线室", "用于网络布线技能训练的教室")
+	operate.InitClassroomTypeData("公共教室", "全校范围通用的教室")
+	operate.InitClassroomTypeData("蒙台梭立实训室", "用于蒙台梭利教学法实训的教室")
+	operate.InitClassroomTypeData("活动室", "用于课外活动和兴趣小组的教室")
+	operate.InitClassroomTypeData("移动一体机", "配备移动设备的灵活教学空间")
+
+	// 初始化 cs_classroom_tag 数据表
+	operate.InitClassroomTagData("多媒体", "配备多媒体设备的教室")
+	operate.InitClassroomTagData("计算机", "配备计算机设备的教室或机房")
+	operate.InitClassroomTagData("实验室", "用于科学实验的专用教室")
+	operate.InitClassroomTagData("音乐", "用于音乐教学及练习的教室")
+	operate.InitClassroomTagData("美术", "用于美术课程教学的教室")
+	operate.InitClassroomTagData("舞蹈", "用于舞蹈课程教学及排练的教室")
+	operate.InitClassroomTagData("理论", "以理论教学为主的普通教室")
+	operate.InitClassroomTagData("实践", "以实践技能训练为主的教室")
+	operate.InitClassroomTagData("汽车维修", "用于汽车维修技能训练的教室")
+	operate.InitClassroomTagData("化工", "用于化工类课程实验与训练的教室")
+	operate.InitClassroomTagData("电工", "用于电工技能教学的专用教室")
+	operate.InitClassroomTagData("网络", "用于网络布线及调试训练的教室")
+	operate.InitClassroomTagData("通用", "全校范围通用的普通教室")
+	operate.InitClassroomTagData("幼教", "用于幼儿教育相关课程教学的教室")
+	operate.InitClassroomTagData("机械装调", "用于机械装配与调试技能训练的教室")
+	operate.InitClassroomTagData("虚拟仿真", "用于虚拟仿真教学的专用教室")
+	operate.InitClassroomTagData("自动化", "用于自动化生产线技能训练的教室")
+	operate.InitClassroomTagData("液压气动", "用于液压气动设备训练的教室")
+	operate.InitClassroomTagData("活动室", "用于课外活动和兴趣小组的教室")
+	operate.InitClassroomTagData("灵活教学", "配备灵活移动设备的多功能教学空间")
+
+	// 初始化 cs_tables_chairs_type 数据表
+	operate.InitTableChairTypeData("实验椅", utils.Ptr("适用于实验室环境的高脚椅或专用椅子"), nil)
+	operate.InitTableChairTypeData("绘图椅", utils.Ptr("适用于工科学生绘图课的椅子，通常带有高度调节功能"), nil)
+	operate.InitTableChairTypeData("工程椅", utils.Ptr("用于工程类实验室或实训室，耐用且符合人体工程学设计"), nil)
+	operate.InitTableChairTypeData("机房椅", utils.Ptr("适用于计算机机房，带有滑轮和可调节高度的功能"), nil)
+	operate.InitTableChairTypeData("电工实训椅", utils.Ptr("用于电工实训室的专用椅子，耐用且易于清洁"), nil)
+	operate.InitTableChairTypeData("仿真实训椅", utils.Ptr("用于虚拟仿真实训室的专业座椅，通常与工作台配套"), nil)
+	operate.InitTableChairTypeData("多功能座椅", utils.Ptr("适用于多媒体教室或报告厅，通常带有折叠写字板"), nil)
+	operate.InitTableChairTypeData("排椅", utils.Ptr("适用于大型教室或阶梯教室的连排座椅"), nil)
+	operate.InitTableChairTypeData("焊接实训椅", utils.Ptr("用于焊接技能训练，耐高温且稳固"), nil)
+	operate.InitTableChairTypeData("车间工作椅", utils.Ptr("用于车间或工厂环境的椅子，结实耐用"), nil)
+	operate.InitTableChairTypeData("实训车间椅", utils.Ptr("专为机械或电气实训车间设计的椅子"), nil)
+	operate.InitTableChairTypeData("机器人实验椅", utils.Ptr("适用于机器人实验室，通常配有高度调节功能"), nil)
+	operate.InitTableChairTypeData("休息椅", utils.Ptr("校园公共区域或实验室休息区的普通座椅"), nil)
+	operate.InitTableChairTypeData("图书馆座椅", utils.Ptr("适用于图书馆安静学习区的专用椅子"), nil)
+	operate.InitTableChairTypeData("会议椅", utils.Ptr("适用于学术会议室或研讨室的舒适椅子"), nil)
+
+	// 初始化 cs_unit_category 数据表
+	operate.InitUnitCategoryData("其它", nil, utils.Ptr("不属于特定分类的单位"))
+	operate.InitUnitCategoryData("行政类", nil, utils.Ptr("学校的行政管理部门"))
+	operate.InitUnitCategoryData("院系", nil, utils.Ptr("负责教学与学生管理的学院或系"))
+	operate.InitUnitCategoryData("科研机构", nil, utils.Ptr("从事科学研究的机构"))
+
+	// 初始化 cs_unit_type 数据表
+	operate.InitUnitTypeData("直属（校办）", utils.Ptr("DirectlyUnder(SchoolOffice)"), utils.Ptr("直属"))
+	operate.InitUnitTypeData("校企合办", utils.Ptr("SchoolEnterpriseJointly"), utils.Ptr("校企"))
+
+	// 初始化 cs_department 数据表
+	operate.InitDepartmentData(
+		"LB01", "院系", "行政类", "直属（校办）", utils.Ptr("department"),
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		time.Date(2025, 1, 16, 0, 0, 0, 0, time.UTC), // 建立年月
+		nil,
+		false,
+		false,
+		false,
+		false,
+		true,
+	)
 }

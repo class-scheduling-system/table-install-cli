@@ -26,45 +26,22 @@
  * --------------------------------------------------------------------------------
  */
 
-package database
+package do
 
 import (
-	"fmt"
-	"frontleaves-table-install-cli/models/do"
-	"frontleaves-table-install-cli/utils"
+	"time"
 )
 
-// InitCampusData 初始化校区数据
-func (db *DbOperate) InitCampusData(name, description, address, code string) {
-	getUUID := utils.GenerateUUIDNoDash()
-	var campus = do.CsCampus{
-		CampusUUID:    getUUID,
-		CampusName:    name,
-		CampusDesc:    description,
-		CampusCode:    address,
-		CampusAddress: code,
-	}
-	tx := db.database.Create(&campus)
-	if tx.Error != nil {
-		panic("初始化校区数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 校区表 [%s-%s-%s] 成功\n", name, description, code)
-	}
+// CsSystem represents the GORM models for the `cs_system` table.
+type CsSystem struct {
+	SystemUUID string    `gorm:"type:char(32);primaryKey;comment:系统主键"`                                                      // 系统主键
+	SystemKey  string    `gorm:"type:varchar(32);uniqueIndex:uk_system_key;not null;comment:系统键"`                            // 系统键，唯一索引
+	SystemVal  string    `gorm:"type:text;comment:系统值"`                                                                      // 系统值
+	CreatedAt  time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:创建时间"`                             // 创建时间
+	UpdatedAt  time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;comment:更新时间"` // 更新时间
 }
 
-func (db *DbOperate) InitBuildingData(name, campus string) {
-	var campusEntity = do.CsCampus{}
-	db.database.Where("campus_name = ?", campus).First(&campusEntity)
-
-	var building = do.CsBuilding{
-		BuildingUUID: utils.GenerateUUIDNoDash(),
-		BuildingName: name,
-		CampusUUID:   campusEntity.CampusUUID,
-	}
-	tx := db.database.Create(&building)
-	if tx.Error != nil {
-		panic("初始化教学楼数据失败: " + tx.Error.Error())
-	} else {
-		fmt.Printf("初始化 教学楼表 [%s-%s] 成功\n", building.BuildingName, campusEntity.CampusName)
-	}
+// TableName specifies the custom table name for the CsSystem models.
+func (CsSystem) TableName() string {
+	return "cs_system"
 }
