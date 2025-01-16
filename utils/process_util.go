@@ -2,6 +2,7 @@ package utils
 
 import (
 	"embed"
+	"github.com/google/uuid"
 	"strings"
 )
 
@@ -23,4 +24,9 @@ func GenerateCreateTableSQL(table string, resourcesFile embed.FS) []string {
 		}
 	}
 	return split
+}
+
+func GenerateUUIDNoDash() string {
+	getUUID := uuid.New()
+	return strings.ReplaceAll(getUUID.String(), "-", "")
 }

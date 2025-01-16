@@ -12,17 +12,17 @@ func Cli(config *toml.Tree, resourcesFile embed.FS) {
 	args := os.Args
 
 	if args == nil || len(args) == 1 || args[1] == "help" {
-		println("智课方舟|基于AI的大学智慧排课系统")
-		println("Copyright © 2022-2025 锋楪技术团队. All rights reserved.")
-		println("数据库快捷操作CLI")
-		println("使用帮助：")
+		println("智课方舟 | 基于AI的大学智慧排课系统")
+		println("数据库快捷操作 CLI，使用帮助：")
 		println("\thelp\t\t显示帮助信息")
 		println("\tconn\t\t检查数据库链接是否正常")
-		println("\tcreate\t\t创建数据库")
-		println("\tinit\t\t初始化数据库(含创建数据库和初始化数据)")
-		println("\tclear\t\t清空数据库")
-		println("\tdelete\t\t删除数据库")
-		println("\treset\t\t重置数据库")
+		println("\tcreate\t\t创建数据表")
+		println("\tinit\t\t初始化数据库(含创建数据表和初始化数据)")
+		println("\tclear\t\t清空数据表数据(保留数据表结构)")
+		println("\tdelete\t\t删除数据表")
+		println("\treset\t\t重置数据库(删除当前数据表再重新创建后初始化数据)")
+		print("\n")
+		println("Copyright © 2022-2025 锋楪技术团队. All rights reserved.")
 		return
 	}
 
