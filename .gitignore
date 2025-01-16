@@ -1,0 +1,5 @@
+.DS_Store
+.idea/
+configuration.toml
+fl_table*
+resources/sql/
