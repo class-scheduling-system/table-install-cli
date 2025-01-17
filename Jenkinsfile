@@ -22,7 +22,7 @@ pipeline {
 
         stage('签出代码') {
             when {
-                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
+                expression { BRANCH_NAME == 'master' }
             }
             steps {
                 echo "拉取代码中..."
@@ -32,7 +32,7 @@ pipeline {
 
         stage('项目打包') {
             when {
-                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
+                expression { BRANCH_NAME == 'master' }
             }
             steps {
                 script {
@@ -66,7 +66,7 @@ pipeline {
 
         stage('收集构建产物') {
             when {
-                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
+                expression { BRANCH_NAME == 'master' }
             }
             steps {
                 script {
@@ -79,7 +79,7 @@ pipeline {
 
         stage('发布到 GitHub Release') {
             when {
-                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
+                expression { BRANCH_NAME == 'master' }
             }
             steps {
                 script {
