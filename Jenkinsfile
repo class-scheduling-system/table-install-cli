@@ -39,27 +39,27 @@ pipeline {
                 script {
                     // 生成时间戳版本号
                     TAG_VERSION = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
-                }
-                echo "清空构建目录..."
-                sh "rm -rf ${WORKSPACE}/build/${TAG_VERSION}"
-                sh "mkdir -p ${WORKSPACE}/build/${TAG_VERSION}"
+                    echo "清空构建目录..."
+                    sh "rm -rf ${WORKSPACE}/build/${TAG_VERSION}"
+                    sh "mkdir -p ${WORKSPACE}/build/${TAG_VERSION}"
 
-                echo "编译项目..."
-                def platforms = [
-                    [os: 'windows', arch: 'amd64'],
-                    [os: 'windows', arch: 'arm64'],
-                    [os: 'linux', arch: 'amd64'],
-                    [os: 'linux', arch: 'arm64'],
-                    [os: 'darwin', arch: 'amd64'],
-                    [os: 'darwin', arch: 'arm64']
-                ]
+                    echo "编译项目..."
+                    def platforms = [
+                        [os: 'windows', arch: 'amd64'],
+                        [os: 'windows', arch: 'arm64'],
+                        [os: 'linux', arch: 'amd64'],
+                        [os: 'linux', arch: 'arm64'],
+                        [os: 'darwin', arch: 'amd64'],
+                        [os: 'darwin', arch: 'arm64']
+                    ]
 
-                platforms.each { platform ->
-                    def outputFile = "${WORKSPACE}/build/${TAG_VERSION}/monitor-dashboard-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
-                    sh """
-                        GOOS=${platform.os} GOARCH=${platform.arch} go build -o ${outputFile} ./main.go
-                        echo "完成打包: ${outputFile}"
-                    """
+                    platforms.each { platform ->
+                        def outputFile = "${WORKSPACE}/build/${TAG_VERSION}/monitor-dashboard-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
+                        sh """
+                            GOOS=${platform.os} GOARCH=${platform.arch} go build -o ${outputFile} ./main.go
+                            echo "完成打包: ${outputFile}"
+                        """
+                    }
                 }
             }
         }
@@ -69,9 +69,11 @@ pipeline {
                 expression { BRANCH_NAME == 'master' }
             }
             steps {
-                echo("版本号: ${TAG_VERSION}")
-                echo "收集所有构建产物..."
-                sh "ls -al ${WORKSPACE}/build/${TAG_VERSION}"
+                script {
+                    echo "版本号: ${TAG_VERSION}"
+                    echo "收集所有构建产物..."
+                    sh "ls -al ${WORKSPACE}/build/${TAG_VERSION}"
+                }
             }
         }
 
@@ -84,7 +86,7 @@ pipeline {
                     def RELEASE_NAME = "RELEASE-${TAG_VERSION}"
                     def CHANGELOG_FILE = "CHANGELOG.md"
 
-                    echo("生成 CHANGELOG...")
+                    echo "生成 CHANGELOG..."
                     sh """
                         echo "# DESCRIPTION" > ${CHANGELOG_FILE}
                         echo "\$(git log -1 --pretty=format:'%B') \n" >> ${CHANGELOG_FILE}
