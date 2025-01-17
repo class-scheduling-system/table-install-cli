@@ -53,10 +53,10 @@ pipeline {
                     ]
 
                     platforms.each { platform ->
-                        def outputFile = "${WORKSPACE}/build/${TAG_VERSION}/cli-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
+                        def outputFile = "./build/${TAG_VERSION}/cli-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
                         sh """
                             cd ${WORKSPACE}
-                            GOOS=${platform.os} GOARCH=${platform.arch} go build -o ${outputFile} ./main.go
+                            GOOS=${platform.os} GOARCH=${platform.arch} go build -o ${outputFile}
                             echo "完成打包: ${outputFile}"
                         """
                     }
