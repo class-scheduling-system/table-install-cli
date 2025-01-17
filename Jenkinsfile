@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         OUTPUT_DIR = 'build'
-        BRANCH_NAME = "${env.BRANCH}"
+        BRANCH_NAME = ''
         GITHUB_REPO = "class-scheduling-system/table-install-cli"
         GITHUB = credentials('github-token')
         TAG_VERSION = ''
@@ -13,17 +13,16 @@ pipeline {
         stage('获取分支信息') {
             steps {
                 script {
-                    if (BRANCH_NAME == 'null' || BRANCH_NAME == '') {
-                        BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                    }
+                    // 从 git 获取当前分支名称
+                    BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                    echo "当前分支是 ${BRANCH_NAME}"
                 }
-                echo "当前分支是 ${BRANCH_NAME}，执行操作..."
             }
         }
 
         stage('签出代码') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
             }
             steps {
                 echo "拉取代码中..."
@@ -33,7 +32,7 @@ pipeline {
 
         stage('项目打包') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
             }
             steps {
                 script {
@@ -66,7 +65,7 @@ pipeline {
 
         stage('收集构建产物') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
             }
             steps {
                 script {
@@ -79,7 +78,7 @@ pipeline {
 
         stage('发布到 GitHub Release') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'master' || BRANCH_NAME == 'HEAD' }
             }
             steps {
                 script {
