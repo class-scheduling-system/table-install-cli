@@ -82,6 +82,8 @@ func ClearDatabase(config *toml.Tree) {
 		panic("数据库连接失败: " + err.Error())
 	}
 
+	// 取消外键约束
+	db.Exec("SET FOREIGN_KEY_CHECKS = 0;")
 	// 倒序清空表数据
 	for _, table := range tables {
 		sql := fmt.Sprintf("DELETE FROM `%s`;", table)
@@ -91,4 +93,6 @@ func ClearDatabase(config *toml.Tree) {
 			fmt.Printf("表 %s 数据已成功清空。\n", table)
 		}
 	}
+	// 恢复外键约束
+	db.Exec("SET FOREIGN_KEY_CHECKS = 1;")
 }
