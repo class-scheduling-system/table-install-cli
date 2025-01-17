@@ -48,4 +48,5 @@ func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
 	setupData.OperateSetupOrdinary()
 	setupData.OperateSetupDepartment()
 	setupData.OperateSetupClassroom()
+
 }
