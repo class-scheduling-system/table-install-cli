@@ -72,9 +72,8 @@ func (db *DbOperate) InitClassroomTagData(name, description string) {
 }
 
 // InitClassroom 初始化教室数据
-// 我需要你写例如 operate.InitClassroom("HXGCZX201", "HXGC2#201-化工分析实验室（一）", "铁门关校区", "化学工程实训中心", 2, "多媒体教室", nil, 50, nil, false, true, true, true, nil, )
 func (db *DbOperate) InitClassroom(
-	number, name, campus, building string, floor uint, classroomType string, classroomTag *[]string, capacity uint, examinationRoomCapacity *uint, examinationRoom, isMultimedia, isAirConditioned, status bool, description *string, managementDepartment string, area float64, tablesChairsType string,
+	number, name, campus, building string, floor uint, classroomType string, classroomTag *[]string, capacity uint, examinationRoomCapacity *uint, examinationRoom, isMultimedia, isAirConditioned, status bool, description, managementDepartment *string, area float64, tablesChairsType *string,
 ) {
 	var campusEntity = do.CsCampus{}
 	db.database.Where("campus_name = ?", campus).First(&campusEntity)
@@ -82,8 +81,22 @@ func (db *DbOperate) InitClassroom(
 	db.database.Where("building_name = ?", building).First(&buildingEntity)
 	var classroomTypeEntity = do.CsClassroomType{}
 	db.database.Where("name = ?", classroomType).First(&classroomTypeEntity)
-	var tablesChairsTypeEntity = do.CsTablesChairsType{}
-	db.database.Where("name = ?", tablesChairsType).First(&tablesChairsTypeEntity)
+	var tablesChairsTypeUUID *string
+	if tablesChairsType != nil {
+		var tablesChairsTypeEntity = do.CsTablesChairsType{}
+		db.database.Where("name = ?", tablesChairsType).First(&tablesChairsTypeEntity)
+		tablesChairsTypeUUID = &tablesChairsTypeEntity.TablesChairsTypeUUID
+	} else {
+		tablesChairsTypeUUID = nil
+	}
+	var departmentUUID *string
+	if managementDepartment != nil {
+		var managementDepartmentEntity = do.CsDepartment{}
+		db.database.Where("department_name = ?", managementDepartment).First(&managementDepartmentEntity)
+		departmentUUID = &managementDepartmentEntity.DepartmentUUID
+	} else {
+		departmentUUID = nil
+	}
 	var classroomTagEntity = make([]string, 0)
 	if classroomTag != nil {
 		for _, tag := range *classroomTag {
@@ -119,9 +132,9 @@ func (db *DbOperate) InitClassroom(
 		IsAirConditioned:        isAirConditioned,
 		Status:                  status,
 		Description:             description,
-		ManagementDepartment:    managementDepartment,
+		ManagementDepartment:    departmentUUID,
 		Area:                    area,
-		TablesChairsType:        tablesChairsTypeEntity.TablesChairsTypeUUID,
+		TablesChairsType:        tablesChairsTypeUUID,
 	}
 	tx := db.database.Create(&classroom)
 	if tx.Error != nil {

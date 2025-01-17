@@ -49,9 +49,9 @@ type CsClassroom struct {
 	IsAirConditioned        bool      `gorm:"column:is_air_conditioned;type:tinyint(1);default:0;not null;comment:是否有空调"`
 	Status                  bool      `gorm:"column:status;type:tinyint(1);default:1;not null;comment:教室状态 0:禁用 1:启用"`
 	Description             *string   `gorm:"column:description;type:varchar(255);comment:教室描述"`
-	ManagementDepartment    string    `gorm:"column:management_department;type:char(32);not null;comment:管理部门"`
+	ManagementDepartment    *string   `gorm:"column:management_department;type:char(32);not null;comment:管理部门"`
 	Area                    float64   `gorm:"column:area;type:decimal(10,2);not null;comment:教室面积"`
-	TablesChairsType        string    `gorm:"column:tables_chairs_type;type:char(32);not null;comment:桌椅类型"`
+	TablesChairsType        *string   `gorm:"column:tables_chairs_type;type:char(32);not null;comment:桌椅类型"`
 	CreatedAt               time.Time `gorm:"column:created_at;type:timestamp;default:CURRENT_TIMESTAMP;not null;comment:创建时间"`
 	UpdatedAt               time.Time `gorm:"column:updated_at;type:timestamp;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;not null;comment:更新时间"`
 }

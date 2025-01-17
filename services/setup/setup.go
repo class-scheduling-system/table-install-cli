@@ -26,26 +26,14 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package setup
 
-import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
-)
+import "frontleaves-table-install-cli/database"
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+type InitStruct struct {
+	operate *database.DbOperate
+}
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupSystem()
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
+func NewSetup(operate *database.DbOperate) *InitStruct {
+	return &InitStruct{operate: operate}
 }

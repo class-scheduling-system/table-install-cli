@@ -86,6 +86,16 @@ func (db *DbOperate) InitDepartmentData(code, name, unitCategory, unitType strin
 		db.database.Where("building_name = ?", *assignedTeachingBuilding).First(&buildingEntity)
 	}
 
+	var parentDepartmentUUID *string = nil
+	if parentDepartment != nil {
+		parentDepartmentUUID = &parentDepartmentEntity.DepartmentUUID
+	}
+
+	var buildingUUID *string = nil
+	if assignedTeachingBuilding != nil {
+		buildingUUID = &buildingEntity.BuildingUUID
+	}
+
 	var department = do.CsDepartment{
 		DepartmentUUID:           utils.GenerateUUIDNoDash(),
 		DepartmentCode:           code,
@@ -101,8 +111,8 @@ func (db *DbOperate) InitDepartmentData(code, name, unitCategory, unitType strin
 		ExpirationDate:           expirationDate,
 		UnitCategory:             unitCategoryEntity.UnitCategoryUUID,
 		UnitType:                 unitTypeEntity.UnitTypeUUID,
-		ParentDepartment:         &parentDepartmentEntity.DepartmentUUID,
-		AssignedTeachingBuilding: &buildingEntity.BuildingUUID,
+		ParentDepartment:         parentDepartmentUUID,
+		AssignedTeachingBuilding: buildingUUID,
 		IsTeachingCollege:        isTeachingCollege,
 		IsAttendingCollege:       isAttendingCollege,
 		FixedPhone:               fixedPhone,

@@ -46,7 +46,7 @@ func Cli(config *toml.Tree, resourcesFile embed.FS) {
 		println("\thelp\t\t显示帮助信息")
 		println("\tconn\t\t检查数据库链接是否正常")
 		println("\tcreate\t\t创建数据表")
-		println("\tinit\t\t初始化数据库(含创建数据表和初始化数据)")
+		println("\tsetup\t\t初始化数据库(含创建数据表和初始化数据)")
 		println("\tclear\t\t清空数据表数据(保留数据表结构)")
 		println("\tdelete\t\t删除数据表")
 		println("\treset\t\t重置数据库(删除当前数据表再重新创建后初始化数据)")
@@ -60,7 +60,7 @@ func Cli(config *toml.Tree, resourcesFile embed.FS) {
 		services.ConnCheck(config)
 	case "create":
 		services.CreateDatabase(config, resourcesFile)
-	case "init":
+	case "setup":
 		services.InitDatabase(config, resourcesFile)
 	case "clear":
 		services.ClearDatabase(config)
