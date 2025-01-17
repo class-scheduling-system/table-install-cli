@@ -44,17 +44,18 @@ pipeline {
 
                     echo "编译项目..."
                     def platforms = [
-                        [os: 'windows', arch: 'amd64'],
-                        [os: 'windows', arch: 'arm64'],
                         [os: 'linux', arch: 'amd64'],
                         [os: 'linux', arch: 'arm64'],
                         [os: 'darwin', arch: 'amd64'],
-                        [os: 'darwin', arch: 'arm64']
+                        [os: 'darwin', arch: 'arm64'],
+                        [os: 'windows', arch: 'amd64'],
+                        [os: 'windows', arch: 'arm64']
                     ]
 
                     platforms.each { platform ->
-                        def outputFile = "${WORKSPACE}/build/${TAG_VERSION}/monitor-dashboard-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
+                        def outputFile = "${WORKSPACE}/build/${TAG_VERSION}/cli-${platform.os}-${platform.arch}${platform.os == 'windows' ? '.exe' : ''}"
                         sh """
+                            cd ${WORKSPACE}
                             GOOS=${platform.os} GOARCH=${platform.arch} go build -o ${outputFile} ./main.go
                             echo "完成打包: ${outputFile}"
                         """
