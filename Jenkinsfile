@@ -92,7 +92,11 @@ pipeline {
                         echo "# DESCRIPTION" > ${CHANGELOG_FILE}
                         echo "\$(git log -1 --pretty=format:'%B') \n" >> ${CHANGELOG_FILE}
                         echo "# CHANGELOG" >> ${CHANGELOG_FILE}
-                        git log --pretty=format:'- %s (@%an) [%h]' >> ${CHANGELOG_FILE}
+                        # 获取上一个 tag
+                        PREVIOUS_TAG=\$(git describe --tags --abbrev=0 HEAD^)
+                        echo "上一个 tag: \${PREVIOUS_TAG}"
+                        # 仅获取当前 tag 和上一个 tag 之间的日志
+                        git log \${PREVIOUS_TAG}..HEAD --pretty=format:'- %s (@%an) [%h]' >> ${CHANGELOG_FILE}
                         echo "" >> ${CHANGELOG_FILE}
                     """
 
