@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         OUTPUT_DIR = 'build'
-        BRANCH_NAME = ''
+        BRANCH_NAME = "${env.BRANCH}"
         GITHUB_REPO = "class-scheduling-system/table-install-cli"
         GITHUB = credentials('github-token')
         TAG_VERSION = ''
