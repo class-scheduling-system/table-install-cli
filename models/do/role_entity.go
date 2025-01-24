@@ -26,25 +26,23 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package do
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// CsRole represents the GORM model for the `cs_role` table.
+type CsRole struct {
+	RoleUUID   string    `gorm:"type:char(32);primaryKey;comment:角色主键"`                                                      // 角色主键
+	RoleName   string    `gorm:"type:varchar(32);uniqueIndex:uk_role_name;not null;comment:角色名"`                             // 角色名，唯一索引
+	RoleStatus int8      `gorm:"type:tinyint(1);default:1;not null;comment:角色状态 0:禁用 1:启用"`                                  // 角色状态
+	Permission *string   `gorm:"type:json;comment:角色权限"`                                                                     // 角色权限，JSON 格式
+	CreatedAt  time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:创建时间"`                             // 创建时间
+	UpdatedAt  time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;comment:更新时间"` // 更新时间
+}
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
+// TableName specifies the custom table name for the CsRole model.
+func (CsRole) TableName() string {
+	return "cs_role"
 }

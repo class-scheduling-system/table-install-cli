@@ -26,25 +26,23 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package do
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// CsPermission represents the GORM models for the `cs_permission` table.
+type CsPermission struct {
+	PermissionUUID string    `gorm:"type:char(32);primaryKey;comment:权限主键"`                                                      // 权限主键
+	PermissionKey  string    `gorm:"type:varchar(255);uniqueIndex:uk_permission_key;not null;comment:权限键 key1.key2.key3"`        // 权限键，唯一索引
+	Name           string    `gorm:"type:varchar(128);not null;comment:权限名称"`                                                    // 权限名称
+	Desc           *string   `gorm:"type:varchar(255);comment:权限描述"`                                                             // 权限描述
+	CreatedAt      time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:创建时间"`                             // 创建时间
+	UpdatedAt      time.Time `gorm:"type:timestamp;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;comment:更新时间"` // 更新时间
+}
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
+// TableName specifies the custom table name for the CsPermission models.
+func (CsPermission) TableName() string {
+	return "cs_permission"
 }

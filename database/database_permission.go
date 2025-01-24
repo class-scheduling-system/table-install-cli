@@ -26,25 +26,26 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package database
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"fmt"
+	"frontleaves-table-install-cli/models/do"
+	"frontleaves-table-install-cli/utils"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
-
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
+// PermissionData 初始化权限数据
+func (db *DbOperate) PermissionData(key, name string, desc *string) {
+	var permission = do.CsPermission{
+		PermissionUUID: utils.GenerateUUIDNoDash(),
+		PermissionKey:  key,
+		Name:           name,
+		Desc:           desc,
+	}
+	tx := db.database.Create(&permission)
+	if tx.Error != nil {
+		panic("初始化权限数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 权限表[%s] 数据 (%s) 成功\n", key, name)
+	}
 }

@@ -101,5 +101,9 @@ func GenerateUUIDNoDash() string {
 //
 //	*string 转换后的指针
 func Ptr(value string) *string {
-	return &value
+	if value == "" || value == "null" || value == "NULL" || value == "Null" || value == "nil" {
+		return nil
+	} else {
+		return &value
+	}
 }

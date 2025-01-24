@@ -26,25 +26,38 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package database
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"encoding/json"
+	"fmt"
+	"frontleaves-table-install-cli/models/do"
+	"frontleaves-table-install-cli/utils"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+func (db *DbOperate) InitRoleData(name string, permission []string) {
+	// 查询权限是否存在
+	for _, v := range permission {
+		var p do.CsPermission
+		tx := db.database.Where("permission_key = ?", v).First(&p)
+		if tx.Error != nil {
+			panic("初始化角色数据失败: " + tx.Error.Error())
+		}
+		if p.PermissionKey == "" {
+			panic("初始化角色数据失败: 未找到权限数据")
+		}
+	}
+	jsonPermission, _ := json.Marshal(permission)
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
+	var role = do.CsRole{
+		RoleUUID:   utils.GenerateUUIDNoDash(),
+		RoleName:   name,
+		Permission: utils.Ptr(string(jsonPermission)),
+	}
+	tx := db.database.Create(&role)
+	if tx.Error != nil {
+		panic("初始化角色数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 角色表 [%s] 成功\n", name)
+	}
 }

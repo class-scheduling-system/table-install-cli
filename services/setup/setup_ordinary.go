@@ -30,11 +30,6 @@ package setup
 
 import "frontleaves-table-install-cli/utils"
 
-func (is *InitStruct) OperateSetupSystem() {
-	// 初始化 cs_system 数据表
-	is.operate.InitSystemData("author", "锋楪技术团队")
-}
-
 func (is *InitStruct) OperateSetupOrdinary() {
 	// 初始化 cs_course_nature 数据表
 	is.operate.InitCourseNatureData("必修课", "所有学生必须修读的课程")
@@ -161,4 +156,54 @@ func (is *InitStruct) OperateSetupOrdinary() {
 	// 初始化 cs_unit_type 数据表
 	is.operate.InitUnitTypeData("直属（校办）", utils.Ptr("DirectlyUnder(SchoolOffice)"), utils.Ptr("直属"))
 	is.operate.InitUnitTypeData("校企合办", utils.Ptr("SchoolEnterpriseJointly"), utils.Ptr("校企"))
+
+	// 初始化 cs_permission 数据表
+	is.operate.PermissionData("operate", "所有系统操作权限", utils.Ptr("有关操作的所有权限，一般是系统权限相关"))
+	is.operate.PermissionData("user", "用户管理权限", utils.Ptr("用户管理相关权限"))
+	is.operate.PermissionData("user:role", "角色管理权限", utils.Ptr("角色管理相关权限"))
+	is.operate.PermissionData("user:role:add", "添加角色权限", utils.Ptr("添加角色相关权限"))
+	is.operate.PermissionData("user:role:edit", "编辑角色权限", utils.Ptr("编辑角色相关权限"))
+	is.operate.PermissionData("user:role:delete", "删除角色权限", utils.Ptr("删除角色相关权限"))
+	is.operate.PermissionData("user:permission", "权限管理权限", utils.Ptr("权限管理相关权限"))
+	is.operate.PermissionData("user:permission:add", "添加权限权限", utils.Ptr("添加权限相关权限"))
+	is.operate.PermissionData("user:permission:edit", "编辑权限权限", utils.Ptr("编辑权限相关权限"))
+	is.operate.PermissionData("user:permission:delete", "删除权限权限", utils.Ptr("删除权限相关权限"))
+	is.operate.PermissionData("user:unit", "单位管理权限", utils.Ptr("单位管理相关权限"))
+	is.operate.PermissionData("user:unit:add", "添加单位权限", utils.Ptr("添加单位相关权限"))
+	is.operate.PermissionData("user:unit:edit", "编辑单位权限", utils.Ptr("编辑单位相关权限"))
+	is.operate.PermissionData("user:unit:delete", "删除单位权限", utils.Ptr("删除单位相关权限"))
+	is.operate.PermissionData("user:unit:category", "单位类别管理权限", utils.Ptr("单位类别管理相关权限"))
+	is.operate.PermissionData("user:unit:category:add", "添加单位类别权限", utils.Ptr("添加单位类别相关权限"))
+	is.operate.PermissionData("user:unit:category:edit", "编辑单位类别权限", utils.Ptr("编辑单位类别相关权限"))
+	is.operate.PermissionData("user:unit:category:delete", "删除单位类别权限", utils.Ptr("删除单位类别相关权限"))
+	is.operate.PermissionData("user:unit:type", "单位类型管理权限", utils.Ptr("单位类型管理相关权限"))
+	is.operate.PermissionData("user:unit:type:add", "添加单位类型权限", utils.Ptr("添加单位类型相关权限"))
+	is.operate.PermissionData("user:unit:type:edit", "编辑单位类型权限", utils.Ptr("编辑单位类型相关权限"))
+	is.operate.PermissionData("user:unit:type:delete", "删除单位类型权限", utils.Ptr("删除单位类型相关权限"))
+	is.operate.PermissionData("user:unit:department", "部门管理权限", utils.Ptr("部门管理相关权限"))
+	is.operate.PermissionData("user:unit:department:add", "添加部门权限", utils.Ptr("添加部门相关权限"))
+	is.operate.PermissionData("user:unit:department:edit", "编辑部门权限", utils.Ptr("编辑部门相关权限"))
+	is.operate.PermissionData("user:unit:department:delete", "删除部门权限", utils.Ptr("删除部门相关权限"))
+	is.operate.PermissionData("user:unit:department:category", "部门类别管理权限", utils.Ptr("部门类别管理相关权限"))
+	is.operate.PermissionData("user:unit:department:category:add", "添加部门类别权限", utils.Ptr("添加部门类别相关权限"))
+	is.operate.PermissionData("user:unit:department:category:edit", "编辑部门类别权限", utils.Ptr("编辑部门类别相关权限"))
+	is.operate.PermissionData("user:unit:department:category:delete", "删除部门类别权限", utils.Ptr("删除部门类别相关权限"))
+	is.operate.PermissionData("user:unit:department:tag", "部门标签管理权限", utils.Ptr("部门标签管理相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:add", "添加部门标签权限", utils.Ptr("添加部门标签相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:edit", "编辑部门标签权限", utils.Ptr("编辑部门标签相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:delete", "删除部门标签权限", utils.Ptr("删除部门标签相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:category", "部门标签类别管理权限", utils.Ptr("部门标签类别管理相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:category:add", "添加部门标签类别权限", utils.Ptr("添加部门标签类别相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:category:edit", "编辑部门标签类别权限", utils.Ptr("编辑部门标签类别相关权限"))
+	is.operate.PermissionData("user:unit:department:tag:category:delete", "删除部门标签类别权限", utils.Ptr("删除部门标签类别相关权限"))
+
+	// 初始化 cs_role 数据表
+	is.operate.InitRoleData("管理员", []string{
+		"operate",
+		"user",
+	})
+	is.operate.InitRoleData("老师", nil)
+	is.operate.InitRoleData("学生", nil)
+	is.operate.InitRoleData("教务", nil)
+	is.operate.InitRoleData("管理", nil)
 }
