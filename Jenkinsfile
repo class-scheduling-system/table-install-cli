@@ -13,10 +13,12 @@ pipeline {
     stages {
         stage('获取分支信息') {
             steps {
-                echo "当前分支是 ${BRANCH_NAME}"
                 script {
                     if (BRANCH_NAME == 'null' || BRANCH_NAME == '') {
                         BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                    } else if (BRANCH_NAME.startsWith('refs/tags/')) {
+                        echo("❌ 不能在 Tag 分支上执行操作！")
+                        return;
                     }
                 }
                 echo "当前分支是 ${BRANCH_NAME}，执行操作..."
@@ -25,7 +27,7 @@ pipeline {
 
         stage('签出代码') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'refs/heads/master' }
             }
             steps {
                 echo "拉取代码中..."
@@ -35,7 +37,7 @@ pipeline {
 
         stage('项目打包') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'refs/heads/master' }
             }
             steps {
                 script {
@@ -69,7 +71,7 @@ pipeline {
 
         stage('收集构建产物') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'refs/heads/master' }
             }
             steps {
                 script {
@@ -82,7 +84,7 @@ pipeline {
 
         stage('发布到 GitHub Release') {
             when {
-                expression { BRANCH_NAME == 'master' }
+                expression { BRANCH_NAME == 'refs/heads/master' }
             }
             steps {
                 script {
