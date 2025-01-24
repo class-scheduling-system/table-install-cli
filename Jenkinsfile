@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('获取分支信息') {
             steps {
-                echo "当前分支是 ${BRANCH}"
+                echo "当前分支是 ${BRANCH_NAME}"
                 script {
                     if (BRANCH_NAME == 'null' || BRANCH_NAME == '') {
                         BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
