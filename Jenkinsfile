@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         OUTPUT_DIR = 'build'
-        BRANCH_NAME = "${GET_BRANCH}"
+        BRANCH_NAME = "${env.BRANCH}"
         GITHUB_REPO = "class-scheduling-system/table-install-cli"
         GITHUB = credentials('github-token')
         TAG_VERSION = ''
@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('获取分支信息') {
             steps {
-                echo "当前分支是 ${env.GET_BRANCH}"
+                echo "当前分支是 ${BRANCH}"
                 script {
                     if (BRANCH_NAME == 'null' || BRANCH_NAME == '') {
                         BRANCH_NAME = sh(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
