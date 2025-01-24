@@ -7,6 +7,7 @@ pipeline {
         GITHUB_REPO = "class-scheduling-system/table-install-cli"
         GITHUB = credentials('github-token')
         TAG_VERSION = ''
+
     }
 
     stages {
