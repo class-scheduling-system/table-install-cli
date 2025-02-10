@@ -80,6 +80,11 @@ func DeleteDatabase(config *toml.Tree) {
 		panic("数据库连接失败: " + err.Error())
 	}
 
+	// 获取并禁用外键约束
+	if result := db.Exec("SET foreign_key_checks = 0;"); result.Error != nil {
+		panic("禁用外键约束失败: " + result.Error.Error())
+	}
+
 	// 开始逆序删除数据表
 	for _, table := range tables {
 		sql := fmt.Sprintf("DROP TABLE IF EXISTS `%s`;", table)
@@ -88,5 +93,10 @@ func DeleteDatabase(config *toml.Tree) {
 		} else {
 			fmt.Printf("表 %s 已成功删除。\n", table)
 		}
+	}
+
+	// 重新启用外键约束
+	if result := db.Exec("SET foreign_key_checks = 1;"); result.Error != nil {
+		panic("启用外键约束失败: " + result.Error.Error())
 	}
 }

@@ -26,26 +26,30 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package do
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// CsMajor 专业表
+type CsMajor struct {
+	MajorUUID        string    `gorm:"type:char(32);primaryKey;comment:专业主键"`
+	MajorName        string    `gorm:"type:varchar(32);not null;unique;comment:专业名称"`
+	MajorDescription *string   `gorm:"type:varchar(255);comment:专业描述"`
+	MajorCode        string    `gorm:"type:varchar(32);not null;unique;comment:专业代码"`
+	MajorStatus      bool      `gorm:"type:tinyint(1);default:1;not null;comment:专业状态 0:禁用 1:启用"`
+	DepartmentUUID   string    `gorm:"type:char(32);not null;comment:学院外键"`
+	EducationYears   uint16    `gorm:"type:smallint unsigned;not null;comment:学制（年）"`
+	TrainingLevel    string    `gorm:"type:varchar(32);not null;comment:培养层次（例如：本科，专科）"`
+	CreatedAt        time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP;not null;comment:创建时间"`
+	UpdatedAt        time.Time `gorm:"type:timestamp;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;not null;comment:更新时间"`
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
+	// 外键关联
+	DepartmentRel *CsDepartment `gorm:"foreignKey:DepartmentUUID;references:DepartmentUUID;onUpdate:CASCADE"`
+}
 
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
+// TableName 指定表名
+func (CsMajor) TableName() string {
+	return "cs_major"
 }
