@@ -49,7 +49,6 @@ func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
 		"cs_unit_category",               // 单位类别表
 		"cs_tables_chairs_type",          // 桌椅类型表
 		"cs_semester",                    // 学期表
-		"cs_major",                       // 专业表
 		"cs_credit_hour_type",            // 学时类型表
 		"cs_course_type",                 // 课程类型表
 		"cs_course_property",             // 课程属性表
@@ -58,6 +57,7 @@ func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
 		"cs_campus",                      // 校区表
 		"cs_building",                    // 教学楼表
 		"cs_department",                  // 部门表
+		"cs_major",                       // 专业表
 		"cs_classroom_tag",               // 教室标签表
 		"cs_classroom_type",              // 教室类型表
 		"cs_classroom",                   // 教室表
