@@ -32,6 +32,7 @@ import (
 	"fmt"
 	"frontleaves-table-install-cli/models/do"
 	"frontleaves-table-install-cli/utils"
+	"time"
 )
 
 // InitCourseNatureData 初始化课程性质数据
@@ -91,5 +92,46 @@ func (db *DbOperate) InitCourseCategoryData(name, description string) {
 		panic("初始化课程类别数据失败: " + tx.Error.Error())
 	} else {
 		fmt.Printf("初始化 课程类别表 [%s-%s] 成功\n", name, description)
+	}
+}
+
+// CourseLibraryData 初始化课程库数据，生成UUID并设置创建及更新时间，使用数据库事务保存数据。
+// 参数course为要存入数据库的课程库结构体。若保存过程中发生错误，则程序将 panic。
+func (db *DbOperate) CourseLibraryData(course do.CsCourseLibrary) {
+	course.CourseLibraryUUID = utils.GenerateUUIDNoDash()
+	// 检查 category 数据
+	if course.Category != nil {
+		var category = do.CsCourseCategory{}
+		db.database.Where("name = ?", course.Category).First(&category)
+		course.Category = utils.Ptr(category.CourseCategoryUUID)
+	}
+	// 检查 property 数据
+	if course.Property != nil {
+		var property = do.CsCourseProperty{}
+		db.database.Where("name = ?", course.Property).First(&property)
+		course.Property = utils.Ptr(property.CoursePropertyUUID)
+	}
+	// 检查 type 数据
+	var typeInfo = do.CsCourseType{}
+	db.database.Where("name = ?", course.Type).First(&typeInfo)
+	course.Type = typeInfo.CourseTypeUUID
+	// 检查 nature 数据
+	if course.Nature != nil {
+		var nature = do.CsCourseNature{}
+		db.database.Where("name = ?", course.Nature).First(&nature)
+		course.Nature = utils.Ptr(nature.CourseNatureUUID)
+	}
+	// 检查 department
+	var department = do.CsDepartment{}
+	db.database.Where("department_name = ?", course.Department).First(&department)
+	course.Department = department.DepartmentUUID
+
+	course.CreatedAt = time.Now()
+	course.UpdatedAt = time.Now()
+	tx := db.database.Create(&course)
+	if tx.Error != nil {
+		panic("初始化课程库数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 课程库[%s] 成功\n", course.Name)
 	}
 }
