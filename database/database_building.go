@@ -41,8 +41,8 @@ func (db *DbOperate) InitCampusData(name, description, address, code string) {
 		CampusUUID:    getUUID,
 		CampusName:    name,
 		CampusDesc:    description,
-		CampusCode:    address,
-		CampusAddress: code,
+		CampusCode:    code,
+		CampusAddress: address,
 	}
 	tx := db.database.Create(&campus)
 	if tx.Error != nil {

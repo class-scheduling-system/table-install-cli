@@ -30,13 +30,18 @@ package services
 
 import (
 	"embed"
+	"fmt"
 	"github.com/pelletier/go-toml"
+	"time"
 )
 
 func ResetDatabase(config *toml.Tree, resourcesFile embed.FS) {
+	nowTime := time.Now().UnixMilli()
 	// 重置数据库
 	DeleteDatabase(config)
 	// 初始化数据库
 	InitDatabase(config, resourcesFile)
-	println("数据库重置成功")
+	fmt.Println()
+	println("[OPERATE] 数据库重置成功")
+	fmt.Printf("[TIME] 耗时 %dms\n", time.Now().UnixMilli()-nowTime)
 }

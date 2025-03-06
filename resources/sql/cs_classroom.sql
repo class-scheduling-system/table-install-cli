@@ -34,7 +34,7 @@ CREATE TABLE `cs_classroom`
     `name`                      VARCHAR(32)    NOT NULL COMMENT '教室名称',
     `campus_uuid`               CHAR(32)       NOT NULL COMMENT '校区主键',
     `building_uuid`             CHAR(32)       NOT NULL COMMENT '楼栋主键',
-    `floor`                     INT            NOT NULL COMMENT '楼层',
+    `floor`                     VARCHAR(4)     NOT NULL COMMENT '楼层',
     `type`                      CHAR(32)       NOT NULL COMMENT '教室类型',
     `tag`                       JSON           NULL COMMENT '教室标签',
     `capacity`                  INT            NOT NULL COMMENT '教室容量',
@@ -58,7 +58,7 @@ ALTER TABLE `cs_classroom`
     ADD CONSTRAINT `fk_cs_classroom_cs_campus`
         FOREIGN KEY (`campus_uuid`) REFERENCES `cs_campus` (`campus_uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD CONSTRAINT `fk_cs_classroom_cs_building`
-    FOREIGN KEY (`building_uuid`) REFERENCES `cs_building` (`building_uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (`building_uuid`) REFERENCES `cs_building` (`building_uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD CONSTRAINT `fk_cs_classroom_cs_classroom_type`
         FOREIGN KEY (`type`) REFERENCES `cs_classroom_type` (`class_type_uuid`) ON DELETE RESTRICT ON UPDATE CASCADE,
     ADD CONSTRAINT `fk_cs_classroom_cs_management_department`
