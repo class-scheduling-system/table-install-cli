@@ -26,29 +26,40 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package database
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"fmt"
+	"frontleaves-table-install-cli/models/do"
+	"frontleaves-table-install-cli/utils"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// InitStudentData 初始化学生数据
+func (db *DbOperate) InitStudentData(name, id, grade, departmentName, majorName, className string, sex bool) {
+	var department = do.CsDepartment{}
+	db.database.Where("department_name = ?", departmentName).First(&department)
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
+	var major = do.CsMajor{}
+	db.database.Where("major_name = ?", majorName).First(&major)
 
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
+	var administrativeClass = do.CsAdministrativeClass{}
+	db.database.Where("class_name = ?", className).First(&administrativeClass)
+
+	var student = do.CsStudent{
+		StudentUUID: utils.GenerateUUIDNoDash(),
+		ID:          id,
+		Name:        name,
+		Gender:      sex,
+		Grade:       grade,
+		Department:  department.DepartmentUUID,
+		Major:       major.MajorUUID,
+		Class:       &administrativeClass.AdministrativeClassUUID,
+	}
+
+	tx := db.database.Create(&student)
+	if tx.Error != nil {
+		panic("初始化学生数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 学生表 [%s-%s] 成功\n", name, id)
+	}
 }

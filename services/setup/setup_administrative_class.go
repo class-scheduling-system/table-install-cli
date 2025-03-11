@@ -31,17 +31,17 @@ package setup
 func (is *InitStruct) OperateSetupAdministrativeClass() {
 	// 畜禽智能化养殖专业
 	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100001", "畜智1班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100002", "畜智2班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100002", "畜智2班", "2022", 20, nil)
 
 	// 棉花加工与经营管理专业
 	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100003", "棉经1班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100004", "棉经2班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100005", "棉经3班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100004", "棉经2班", "2022", 16, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100005", "棉经3班", "2022", 42, nil)
 
 	// 现代农业经济管理
-	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100006", "农经1班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100007", "农经2班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100006", "农经1班", "2022", 15, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100007", "农经2班", "2022", 18, nil)
 
 	// 畜牧兽医
-	is.operate.InitAdministrativeClass("现代农业学院", "畜牧兽医", "CC100008", "畜兽1班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "畜牧兽医", "CC100008", "畜兽1班", "2022", 42, nil)
 }

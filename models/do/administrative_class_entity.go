@@ -47,6 +47,11 @@ type CsAdministrativeClass struct {
 	Description             *string   `gorm:"column:description;type:varchar(255)" json:"description"`                                                           // 班级描述
 	CreatedAt               time.Time `gorm:"column:created_at;type:timestamp;not null;default:CURRENT_TIMESTAMP" json:"created_at"`                             // 创建时间
 	UpdatedAt               time.Time `gorm:"column:updated_at;type:timestamp;not null;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP" json:"updated_at"` // 更新时间
+
+	Department *CsDepartment `gorm:"foreignKey:DepartmentUUID" json:"-"`
+	Major      *CsMajor      `gorm:"foreignKey:MajorUUID" json:"-"`
+	Counselor  *CsTeacher    `gorm:"foreignKey:CounselorUUID" json:"-"`
+	Monitor    *CsStudent    `gorm:"foreignKey:MonitorUUID" json:"-"`
 }
 
 // TableName 设置表名

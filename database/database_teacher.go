@@ -49,3 +49,29 @@ func (db *DbOperate) InitTeacherTypeData(name, englishName, description string) 
 		fmt.Printf("初始化 教师类型表 [%s-%s] 成功\n", name, description)
 	}
 }
+
+// InitTeacherData 初始化教师数据
+func (db *DbOperate) InitTeacherData(name, englishName, id, ethnic string, sex bool, typeName, unitName string) {
+	var teacherType = do.CsTeacherType{}
+	db.database.Where("type_name = ?", typeName).First(&teacherType)
+	var unit = do.CsDepartment{}
+	db.database.Where("department_name = ?", unitName).First(&unit)
+
+	var teacher = do.CsTeacher{
+		TeacherUUID: utils.GenerateUUIDNoDash(),
+		UnitUUID:    unit.DepartmentUUID,
+		ID:          id,
+		Name:        name,
+		EnglishName: englishName,
+		Ethnic:      ethnic,
+		Sex:         sex,
+		Type:        teacherType.TeacherTypeUUID,
+	}
+
+	tx := db.database.Create(&teacher)
+	if tx.Error != nil {
+		panic("初始化教师数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 教师表 [%s-%s] 成功\n", name, id)
+	}
+}
