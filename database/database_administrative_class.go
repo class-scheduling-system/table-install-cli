@@ -35,7 +35,7 @@ import (
 )
 
 // InitAdministrativeClass 初始化行政班级数据
-func (db *DbOperate) InitAdministrativeClass(departmentName, majorName, classCode, className, grade string, studentCount uint) {
+func (db *DbOperate) InitAdministrativeClass(departmentName, majorName, classCode, className, grade string, studentCount uint, desc *string) {
 	var departmentDO = do.CsDepartment{}
 	db.database.Where("department_name = ?", departmentName).First(&departmentDO)
 	var majorDO = do.CsMajor{}
@@ -45,9 +45,12 @@ func (db *DbOperate) InitAdministrativeClass(departmentName, majorName, classCod
 		ClassCode:               classCode,
 		ClassName:               className,
 		Grade:                   grade,
+		Description:             desc,
 		StudentCount:            studentCount,
 		DepartmentUUID:          departmentDO.DepartmentUUID,
 		MajorUUID:               majorDO.MajorUUID,
+		CounselorUUID:           nil,
+		MonitorUUID:             nil,
 	}
 	tx := db.database.Create(&class)
 	if tx.Error != nil {

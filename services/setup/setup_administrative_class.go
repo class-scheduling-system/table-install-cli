@@ -26,28 +26,22 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package setup
 
-import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
-)
+func (is *InitStruct) OperateSetupAdministrativeClass() {
+	// 畜禽智能化养殖专业
+	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100001", "畜智1班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100002", "畜智2班", "2022", 39, nil)
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+	// 棉花加工与经营管理专业
+	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100003", "棉经1班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100004", "棉经2班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100005", "棉经3班", "2022", 39, nil)
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
+	// 现代农业经济管理
+	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100006", "农经1班", "2022", 39, nil)
+	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100007", "农经2班", "2022", 39, nil)
 
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupAdministrativeClass()
+	// 畜牧兽医
+	is.operate.InitAdministrativeClass("现代农业学院", "畜牧兽医", "CC100008", "畜兽1班", "2022", 39, nil)
 }

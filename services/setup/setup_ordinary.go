@@ -206,4 +206,15 @@ func (is *InitStruct) OperateSetupOrdinary() {
 	is.operate.InitRoleData("学生", nil)
 	is.operate.InitRoleData("教务", nil)
 	is.operate.InitRoleData("管理", nil)
+
+	// 初始化 cs_teacher_type 数据表
+	is.operate.InitTeacherTypeData("专职教师", "full-time teacher", "全职从事教学工作的教师")
+	is.operate.InitTeacherTypeData("兼职教师", "part-time teacher", "兼职从事教学工作的教师")
+	is.operate.InitTeacherTypeData("实习教师", "internship teacher", "实习教师")
+	is.operate.InitTeacherTypeData("助教", "teaching assistant", "教学助理")
+	is.operate.InitTeacherTypeData("讲师", "lecturer", "讲师")
+	is.operate.InitTeacherTypeData("副教授", "associate professor", "副教授")
+	is.operate.InitTeacherTypeData("教授", "professor", "教授")
+	is.operate.InitTeacherTypeData("辅导员", "counselor", "学生辅导员")
+	is.operate.InitTeacherTypeData("其他", "other", "其他类型的教师")
 }

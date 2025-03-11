@@ -41,10 +41,10 @@ type CsAdministrativeClass struct {
 	ClassName               string    `gorm:"column:class_name;type:varchar(64);not null" json:"class_name"`                                                     // 班级名称
 	Grade                   string    `gorm:"column:grade;type:varchar(16);not null;index:idx_administrative_class_grade" json:"grade"`                          // 年级
 	StudentCount            uint      `gorm:"column:student_count;type:int unsigned;not null;default:0" json:"student_count"`                                    // 学生人数
-	CounselorUUID           string    `gorm:"column:counselor_uuid;type:char(32);index:idx_administrative_class_counselor" json:"counselor_uuid"`                // 辅导员UUID
-	MonitorUUID             string    `gorm:"column:monitor_uuid;type:char(32);index:idx_administrative_class_monitor" json:"monitor_uuid"`                      // 班长UUID
+	CounselorUUID           *string   `gorm:"column:counselor_uuid;type:char(32);index:idx_administrative_class_counselor" json:"counselor_uuid"`                // 辅导员UUID
+	MonitorUUID             *string   `gorm:"column:monitor_uuid;type:char(32);index:idx_administrative_class_monitor" json:"monitor_uuid"`                      // 班长UUID
 	IsEnabled               bool      `gorm:"column:is_enabled;type:tinyint(1);not null;default:1;index:idx_administrative_class_enabled" json:"is_enabled"`     // 是否启用(0:禁用,1:启用)
-	Description             string    `gorm:"column:description;type:varchar(255)" json:"description"`                                                           // 班级描述
+	Description             *string   `gorm:"column:description;type:varchar(255)" json:"description"`                                                           // 班级描述
 	CreatedAt               time.Time `gorm:"column:created_at;type:timestamp;not null;default:CURRENT_TIMESTAMP" json:"created_at"`                             // 创建时间
 	UpdatedAt               time.Time `gorm:"column:updated_at;type:timestamp;not null;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP" json:"updated_at"` // 更新时间
 }
