@@ -25,31 +25,21 @@
  * 对因使用本软件内容而导致的任何直接或间接的损失不承担任何责任。
  * --------------------------------------------------------------------------------
  */
+USE `class-scheduling-system`;
+CREATE TABLE `cs_grade`
+(
+    `grade_uuid`   CHAR(32)     NOT NULL PRIMARY KEY COMMENT '年级主键',
+    `name`         VARCHAR(32)  NOT NULL COMMENT '年级名称（如：2020级、2021级）',
+    `year`         YEAR         NOT NULL COMMENT '入学年份',
+    `start_date`   DATE         NOT NULL COMMENT '年级开始日期',
+    `end_date`     DATE         NULL COMMENT '年级结束日期',
+    `description`  VARCHAR(255) NULL     COMMENT '年级描述',
+    `created_at`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci
+    COMMENT = '年级表';
 
-package services
-
-import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
-)
-
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
-
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupGrade()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
-}
+CREATE UNIQUE INDEX `uk_grade_name` ON `cs_grade` (`name`) COMMENT '年级名称唯一索引';
+CREATE UNIQUE INDEX `uk_grade_year` ON `cs_grade` (`year`) COMMENT '入学年份唯一索引';

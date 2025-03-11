@@ -39,7 +39,7 @@ type CsAdministrativeClass struct {
 	MajorUUID               string    `gorm:"column:major_uuid;type:char(32);not null" json:"major_uuid"`                                                        // 所属专业
 	ClassCode               string    `gorm:"column:class_code;type:varchar(32);not null;uniqueIndex:uk_class_code" json:"class_code"`                           // 班级编号
 	ClassName               string    `gorm:"column:class_name;type:varchar(64);not null" json:"class_name"`                                                     // 班级名称
-	Grade                   string    `gorm:"column:grade;type:varchar(16);not null;index:idx_administrative_class_grade" json:"grade"`                          // 年级
+	GradeUUID               string    `gorm:"column:grade_uuid;type:varchar(16);not null;index:idx_administrative_class_grade" json:"grade"`                     // 年级
 	StudentCount            uint      `gorm:"column:student_count;type:int unsigned;not null;default:0" json:"student_count"`                                    // 学生人数
 	CounselorUUID           *string   `gorm:"column:counselor_uuid;type:char(32);index:idx_administrative_class_counselor" json:"counselor_uuid"`                // 辅导员UUID
 	MonitorUUID             *string   `gorm:"column:monitor_uuid;type:char(32);index:idx_administrative_class_monitor" json:"monitor_uuid"`                      // 班长UUID

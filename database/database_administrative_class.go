@@ -40,11 +40,14 @@ func (db *DbOperate) InitAdministrativeClass(departmentName, majorName, classCod
 	db.database.Where("department_name = ?", departmentName).First(&departmentDO)
 	var majorDO = do.CsMajor{}
 	db.database.Where("major_name = ?", majorName).First(&majorDO)
+	var getGrade = do.CsGrade{}
+	db.database.Where("year = ?", grade).First(&getGrade)
+
 	var class = do.CsAdministrativeClass{
 		AdministrativeClassUUID: utils.GenerateUUIDNoDash(),
 		ClassCode:               classCode,
 		ClassName:               className,
-		Grade:                   grade,
+		GradeUUID:               getGrade.GradeUUID,
 		Description:             desc,
 		StudentCount:            studentCount,
 		DepartmentUUID:          departmentDO.DepartmentUUID,

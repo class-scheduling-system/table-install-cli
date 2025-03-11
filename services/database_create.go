@@ -66,6 +66,7 @@ func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
 		"cs_course_library",              // 课程库表
 		"cs_academic_affairs_permission", // 教务权限表
 		"cs_class_assignment",            // 排课表
+		"cs_grade",                       // 年级表
 		"cs_student",                     // 学生表
 		"cs_administrative_class",        // 行政班表
 		"cs_scheduling_conflict",         // 排课冲突表

@@ -26,30 +26,24 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package do
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// CsGrade 年级表实体
+type CsGrade struct {
+	GradeUUID   string     `gorm:"column:grade_uuid;type:char(32);primaryKey;not null" json:"grade_uuid"`
+	Name        string     `gorm:"column:name;type:varchar(32);not null;uniqueIndex:uk_grade_name" json:"name"`
+	Year        int        `gorm:"column:year;type:year;not null;uniqueIndex:uk_grade_year" json:"year"`
+	StartDate   time.Time  `gorm:"column:start_date;type:date;not null" json:"start_date"`
+	EndDate     *time.Time `gorm:"column:end_date;type:date" json:"end_date"`
+	Description *string    `gorm:"column:description;type:varchar(255)" json:"description"`
+	CreatedAt   time.Time  `gorm:"column:created_at;type:timestamp;not null;default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt   time.Time  `gorm:"column:updated_at;type:timestamp;not null;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP" json:"updated_at"`
+}
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupGrade()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
+func (CsGrade) TableName() string {
+	return "cs_grade"
 }

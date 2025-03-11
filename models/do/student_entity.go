@@ -36,7 +36,8 @@ type CsStudent struct {
 	ID          string    `gorm:"column:id;type:varchar(32);not null;uniqueIndex:uk_student_id" json:"id"`
 	Name        string    `gorm:"column:name;type:varchar(32);not null;index:idx_student_name" json:"name"`
 	Gender      bool      `gorm:"column:gender;type:tinyint(1);not null" json:"gender"`
-	Grade       string    `gorm:"column:grade;type:varchar(32);not null;index:idx_student_grade" json:"grade"`
+	GradeUuid   string    `gorm:"column:grade_uuid;type:varchar(32);not null;index:idx_student_grade" json:"grade"`
+	IsGraduated *bool     `gorm:"column:is_graduated;type:tinyint(1);not null;default:0" json:"is_graduate"`
 	Department  string    `gorm:"column:department;type:char(32);not null;index:idx_student_department" json:"department"`
 	Major       string    `gorm:"column:major;type:char(32);not null;index:idx_student_major" json:"major"`
 	Class       *string   `gorm:"column:class;type:char(32);index:idx_student_class" json:"class"`

@@ -26,30 +26,31 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package setup
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+func (is *InitStruct) OperateSetupGrade() {
+	// 2022级
+	is.operate.InitGradeData(
+		"2022级",
+		2022,
+		time.Date(2022, 9, 1, 0, 0, 0, 0, time.Local),
+	)
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
+	// 2023级
+	is.operate.InitGradeData(
+		"2023级",
+		2023,
+		time.Date(2023, 9, 1, 0, 0, 0, 0, time.Local),
+	)
 
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupGrade()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
+	// 2024级
+	is.operate.InitGradeData(
+		"2024级",
+		2024,
+		time.Date(2024, 9, 1, 0, 0, 0, 0, time.Local),
+	)
 }

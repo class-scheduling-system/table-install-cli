@@ -35,7 +35,7 @@ import (
 )
 
 // InitStudentData 初始化学生数据
-func (db *DbOperate) InitStudentData(name, id, grade, departmentName, majorName, className string, sex bool) {
+func (db *DbOperate) InitStudentData(name, id, gradeName, departmentName, majorName, className string, sex bool) {
 	var department = do.CsDepartment{}
 	db.database.Where("department_name = ?", departmentName).First(&department)
 
@@ -45,12 +45,15 @@ func (db *DbOperate) InitStudentData(name, id, grade, departmentName, majorName,
 	var administrativeClass = do.CsAdministrativeClass{}
 	db.database.Where("class_name = ?", className).First(&administrativeClass)
 
+	var getGrade = do.CsGrade{}
+	db.database.Where("year = ?", gradeName).First(&getGrade)
+
 	var student = do.CsStudent{
 		StudentUUID: utils.GenerateUUIDNoDash(),
 		ID:          id,
 		Name:        name,
 		Gender:      sex,
-		Grade:       grade,
+		GradeUuid:   getGrade.GradeUUID,
 		Department:  department.DepartmentUUID,
 		Major:       major.MajorUUID,
 		Class:       &administrativeClass.AdministrativeClassUUID,

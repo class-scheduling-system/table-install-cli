@@ -37,7 +37,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -62,7 +62,7 @@ CREATE TABLE `cs_administrative_class`
     `major_uuid`                CHAR(32)     NOT NULL COMMENT '所属专业',
     `class_code`                VARCHAR(32)  NOT NULL COMMENT '班级编号',
     `class_name`                VARCHAR(64)  NOT NULL COMMENT '班级名称',
-    `grade`                     VARCHAR(16)  NOT NULL COMMENT '年级',
+    `grade_uuid`                CHAR(32)     NOT NULL COMMENT '年级UUID',
     `student_count`             INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '学生人数',
     `counselor_uuid`            CHAR(32)     NULL COMMENT '辅导员UUID',
     `monitor_uuid`              CHAR(32)     NULL COMMENT '班长UUID',
@@ -78,7 +78,7 @@ CREATE TABLE `cs_administrative_class`
 CREATE UNIQUE INDEX `uk_class_code` ON `cs_administrative_class` (`class_code`) COMMENT '班级编号唯一索引';
 CREATE INDEX `idx_administrative_class_department` ON `cs_administrative_class` (`department_uuid`) COMMENT '院系索引';
 CREATE INDEX `idx_administrative_class_major` ON `cs_administrative_class` (`major_uuid`) COMMENT '专业索引';
-CREATE INDEX `idx_administrative_class_grade` ON `cs_administrative_class` (`grade`) COMMENT '年级索引';
+CREATE INDEX `idx_administrative_class_grade_uuid` ON `cs_administrative_class` (`grade_uuid`) COMMENT '年级索引';
 CREATE INDEX `idx_administrative_class_department_major` ON `cs_administrative_class` (`department_uuid`, `major_uuid`) COMMENT '院系专业组合索引';
 CREATE INDEX `idx_administrative_class_counselor` ON `cs_administrative_class` (`counselor_uuid`) COMMENT '辅导员索引';
 CREATE INDEX `idx_administrative_class_monitor` ON `cs_administrative_class` (`monitor_uuid`) COMMENT '班长索引';
@@ -96,7 +96,10 @@ ALTER TABLE `cs_administrative_class`
             ON DELETE SET NULL ON UPDATE CASCADE,
     ADD CONSTRAINT `fk_administrative_class_monitor`
         FOREIGN KEY (`monitor_uuid`) REFERENCES `cs_student` (`student_uuid`)
-            ON DELETE SET NULL ON UPDATE CASCADE;
+            ON DELETE SET NULL ON UPDATE CASCADE,
+    ADD CONSTRAINT `fk_administrative_class_grade`
+        FOREIGN KEY (`grade_uuid`) REFERENCES `cs_grade` (`grade_uuid`)
+            ON DELETE RESTRICT ON UPDATE CASCADE;
 
 ALTER TABLE `cs_student`
     ADD CONSTRAINT `fk_cs_administrative_class_cs_student`

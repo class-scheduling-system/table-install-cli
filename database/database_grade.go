@@ -26,30 +26,30 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package database
 
 import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
-	"github.com/pelletier/go-toml"
+	"fmt"
+	"frontleaves-table-install-cli/models/do"
+	"frontleaves-table-install-cli/utils"
+	"time"
 )
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
+// InitGradeData 初始化年级数据
+func (db *DbOperate) InitGradeData(name string, year int, startDate time.Time) {
+	var grade = do.CsGrade{
+		GradeUUID:   utils.GenerateUUIDNoDash(),
+		Name:        name,
+		Year:        year,
+		StartDate:   startDate,
+		EndDate:     nil,
+		Description: nil,
+	}
 
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupGrade()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
+	tx := db.database.Create(&grade)
+	if tx.Error != nil {
+		panic("初始化年级数据失败: " + tx.Error.Error())
+	} else {
+		fmt.Printf("初始化 年级表 [%s-%d] 成功\n", name, year)
+	}
 }
