@@ -38,11 +38,14 @@ import (
 
 // 逆序删除表的顺序
 var tables = []string{
+	"cs_scheduling_conflict",         // 排课冲突表
+	"cs_student",                     // 学生表
+	"cs_administrative_class",        // 行政班表
 	"cs_class_assignment",            // 排课表
 	"cs_academic_affairs_permission", // 教务权限表
 	"cs_course_library",              // 课程库表
 	"cs_teacher",                     // 教师表
-	"cs_student",                     // 学生表
+	"cs_teacher_type",                // 教师类型表
 	"cs_classroom",                   // 教室表
 	"cs_classroom_type",              // 教室类型表
 	"cs_classroom_tag",               // 教室标签表
@@ -63,6 +66,10 @@ var tables = []string{
 	"cs_role",                        // 角色表
 	"cs_permission",                  // 权限管理表
 	"cs_system",                      // 系统配置相关表
+}
+
+var views = []string{
+	"v_unresolved_conflicts", // 未解决冲突视图
 }
 
 func DeleteDatabase(config *toml.Tree) {
@@ -92,6 +99,16 @@ func DeleteDatabase(config *toml.Tree) {
 			fmt.Printf("删除表 %s 失败: %v\n", table, err)
 		} else {
 			fmt.Printf("表 %s 已成功删除。\n", table)
+		}
+	}
+
+	// 删除视图
+	for _, view := range views {
+		sql := fmt.Sprintf("DROP VIEW IF EXISTS `%s`;", view)
+		if err := db.Exec(sql).Error; err != nil {
+			fmt.Printf("删除视图 %s 失败: %v\n", view, err)
+		} else {
+			fmt.Printf("视图 %s 已成功删除。\n", view)
 		}
 	}
 
