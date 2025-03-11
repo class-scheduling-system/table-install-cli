@@ -55,41 +55,45 @@
  */
 
 USE `class-scheduling-system`;
-CREATE TABLE `cs_student`
+CREATE TABLE `cs_administrative_class`
 (
-    `student_uuid` CHAR(32)    NOT NULL PRIMARY KEY COMMENT '学生主键',
-    `id`         VARCHAR(32) NOT NULL COMMENT '学号',
-    `name`       VARCHAR(32) NOT NULL COMMENT '学生姓名',
-    `gender`       BOOLEAN     NOT NULL COMMENT '性别 0:女 1:男',
-    `grade`        VARCHAR(32) NOT NULL COMMENT '年级',
-    `department` CHAR(32)    NOT NULL COMMENT '所属学院',
-    `major`      CHAR(32)    NOT NULL COMMENT '所属专业',
-    `class`        VARCHAR(32) NOT NULL COMMENT '班级',
-    `user_uuid`    CHAR(32)    NULL COMMENT '对应用户主键',
-    `created_at`   TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_at`   TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+    `administrative_class_uuid` CHAR(32)     NOT NULL PRIMARY KEY COMMENT '行政班主键',
+    `department_uuid`           CHAR(32)     NOT NULL COMMENT '所属部门/院系',
+    `major_uuid`                CHAR(32)     NOT NULL COMMENT '所属专业',
+    `class_code`                VARCHAR(32)  NOT NULL COMMENT '班级编号',
+    `class_name`                VARCHAR(64)  NOT NULL COMMENT '班级名称',
+    `grade`                     VARCHAR(16)  NOT NULL COMMENT '年级',
+    `student_count`             INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '学生人数',
+    `counselor_uuid`            CHAR(32)     NULL COMMENT '辅导员UUID',
+    `monitor_uuid`              CHAR(32)     NULL COMMENT '班长UUID',
+    `is_enabled`                BOOLEAN      NOT NULL DEFAULT TRUE COMMENT '是否启用(0:禁用,1:启用)',
+    `description`               VARCHAR(255) NULL COMMENT '班级描述',
+    `created_at`                TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updated_at`                TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci
-    COMMENT = '学生表';
+    COMMENT = '行政班表';
 
-CREATE UNIQUE INDEX `uk_student_id` ON `cs_student` (`id`) COMMENT '学号唯一索引';
+CREATE UNIQUE INDEX `uk_class_code` ON `cs_administrative_class` (`class_code`) COMMENT '班级编号唯一索引';
+CREATE INDEX `idx_administrative_class_department` ON `cs_administrative_class` (`department_uuid`) COMMENT '院系索引';
+CREATE INDEX `idx_administrative_class_major` ON `cs_administrative_class` (`major_uuid`) COMMENT '专业索引';
+CREATE INDEX `idx_administrative_class_grade` ON `cs_administrative_class` (`grade`) COMMENT '年级索引';
+CREATE INDEX `idx_administrative_class_department_major` ON `cs_administrative_class` (`department_uuid`, `major_uuid`) COMMENT '院系专业组合索引';
+CREATE INDEX `idx_administrative_class_counselor` ON `cs_administrative_class` (`counselor_uuid`) COMMENT '辅导员索引';
+CREATE INDEX `idx_administrative_class_monitor` ON `cs_administrative_class` (`monitor_uuid`) COMMENT '班长索引';
+CREATE INDEX `idx_administrative_class_enabled` ON `cs_administrative_class` (`is_enabled`) COMMENT '启用状态索引';
 
--- 添加优化查询的索引
-CREATE INDEX `idx_student_name` ON `cs_student` (`name`) COMMENT '学生姓名索引';
-CREATE INDEX `idx_student_department` ON `cs_student` (`department`) COMMENT '学院索引';
-CREATE INDEX `idx_student_major` ON `cs_student` (`major`) COMMENT '专业索引';
-CREATE INDEX `idx_student_class` ON `cs_student` (`class`) COMMENT '班级索引';
-CREATE INDEX `idx_student_grade` ON `cs_student` (`grade`) COMMENT '年级索引';
-CREATE INDEX `idx_student_department_major_class` ON `cs_student` (`department`, `major`, `class`) COMMENT '院系专业班级组合索引';
-
-ALTER TABLE `cs_student`
-    ADD CONSTRAINT `fk_cs_student_cs_department`
-        FOREIGN KEY (`department`) REFERENCES `cs_department` (`department_uuid`)
+ALTER TABLE `cs_administrative_class`
+    ADD CONSTRAINT `fk_administrative_class_department`
+        FOREIGN KEY (`department_uuid`) REFERENCES `cs_department` (`department_uuid`)
             ON DELETE RESTRICT ON UPDATE CASCADE,
-    ADD CONSTRAINT `fk_cs_student_cs_major`
-        FOREIGN KEY (`major`) REFERENCES `cs_major` (`major_uuid`)
+    ADD CONSTRAINT `fk_administrative_class_major`
+        FOREIGN KEY (`major_uuid`) REFERENCES `cs_major` (`major_uuid`)
             ON DELETE RESTRICT ON UPDATE CASCADE,
-    ADD CONSTRAINT `fk_cs_student_cs_user`
-        FOREIGN KEY (`user_uuid`) REFERENCES `cs_user` (`user_uuid`)
+    ADD CONSTRAINT `fk_administrative_class_counselor`
+        FOREIGN KEY (`counselor_uuid`) REFERENCES `cs_teacher` (`teacher_uuid`)
+            ON DELETE SET NULL ON UPDATE CASCADE,
+    ADD CONSTRAINT `fk_administrative_class_monitor`
+        FOREIGN KEY (`monitor_uuid`) REFERENCES `cs_student` (`student_uuid`)
             ON DELETE SET NULL ON UPDATE CASCADE;

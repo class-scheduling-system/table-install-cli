@@ -36,7 +36,9 @@ CREATE TABLE `cs_building`
     `created_at`    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_at`    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT = '教学楼表';
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci
+    COMMENT = '教学楼表';
 
 ALTER TABLE `cs_building`
     ADD CONSTRAINT `fk_cs_building_cs_campus`
