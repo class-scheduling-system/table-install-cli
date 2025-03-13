@@ -39,14 +39,13 @@ type CsUser struct {
 	Password   string    `gorm:"column:password;type:char(60);not null" json:"-"`                                                                   // 用户密码
 	Email      string    `gorm:"column:email;type:varchar(255);not null;uniqueIndex:uk_user_email" json:"email"`                                    // 用户邮箱
 	Phone      string    `gorm:"column:phone;type:varchar(11);not null;uniqueIndex:uk_user_phone" json:"phone"`                                     // 用户手机号
-	Status     bool      `gorm:"column:status;type:tinyint(1);not null;default:1;index:idx_user_status" json:"status"`                              // 用户状态 0:禁用 1:启用
-	Ban        bool      `gorm:"column:ban;type:tinyint(1);not null;default:0;index:idx_user_ban" json:"ban"`                                       // 用户是否被封禁 0:未封禁 1:已封禁
+	Status     *bool     `gorm:"column:status;type:tinyint(1);not null;default:1;index:idx_user_status" json:"status"`                              // 用户状态 0:禁用 1:启用
+	Ban        *bool     `gorm:"column:ban;type:tinyint(1);not null;default:0;index:idx_user_ban" json:"ban"`                                       // 用户是否被封禁 0:未封禁 1:已封禁
 	RoleUUID   string    `gorm:"column:role_uuid;type:char(32);not null;index:idx_user_role_uuid" json:"role_uuid"`                                 // 角色UUID
-	Permission string    `gorm:"column:permission;type:json" json:"permission"`                                                                     // 用户权限
+	Permission *string   `gorm:"column:permission;type:json" json:"permission"`                                                                     // 用户权限
 	CreatedAt  time.Time `gorm:"column:created_at;type:timestamp;not null;default:CURRENT_TIMESTAMP" json:"created_at"`                             // 创建时间
 	UpdatedAt  time.Time `gorm:"column:updated_at;type:timestamp;not null;default:CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP" json:"updated_at"` // 更新时间
 
-	// 外键关联
 	Role CsRole `gorm:"foreignKey:RoleUUID;references:RoleUUID;constraint:OnUpdate:CASCADE" json:"role"` // 关联角色
 }
 

@@ -202,7 +202,7 @@ func (is *InitStruct) OperateSetupOrdinary() {
 		"operate",
 		"user",
 	})
-	is.operate.InitRoleData("老师", nil)
+	is.operate.InitRoleData("教师", nil)
 	is.operate.InitRoleData("学生", nil)
 	is.operate.InitRoleData("教务", nil)
 	is.operate.InitRoleData("管理", nil)

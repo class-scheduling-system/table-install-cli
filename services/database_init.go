@@ -52,4 +52,5 @@ func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
 	setupData.OperateSetupGrade()
 	setupData.OperateSetupAdministrativeClass()
 	setupData.OperateSetupTeacherAndStudent()
+	setupData.OperateSetupUser()
 }

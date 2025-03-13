@@ -59,6 +59,11 @@ func NewDatabaseOperate(config *toml.Tree) *DbOperate {
 	}
 }
 
+// GetDatabase 获取数据库连接对象
+func (db *DbOperate) GetDatabase() *gorm.DB {
+	return db.database
+}
+
 // DbOperate 数据库操作对象
 type DbOperate struct {
 	database *gorm.DB

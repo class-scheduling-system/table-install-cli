@@ -26,23 +26,27 @@
  * --------------------------------------------------------------------------------
  */
 
-package setup
+package do
 
-func (is *InitStruct) OperateSetupAdministrativeClass() {
-	// 畜禽智能化养殖专业
-	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100001", "畜智1班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100002", "畜智2班", "2022", 20, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "畜禽智能化养殖", "CC100003", "畜智3班", "2022", 20, nil)
+import (
+	"time"
+)
 
-	// 棉花加工与经营管理专业
-	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100004", "棉经1班", "2022", 39, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100005", "棉经2班", "2022", 16, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "棉花加工与经营管理", "CC100006", "棉经3班", "2022", 42, nil)
+// CsAcademicAffairsPermission 教务权限表
+type CsAcademicAffairsPermission struct {
+	AcademicAffairsPermissionUUID string    `gorm:"column:academic_affairs_permission_uuid;type:char(32);primaryKey;comment:教务权限主键" json:"academic_affairs_permission_uuid"`
+	AuthorizedUser                string    `gorm:"column:authorized_user;type:char(32);not null;comment:授权用户" json:"authorized_user"`
+	Department                    string    `gorm:"column:department;type:char(32);not null;comment:部门（要求该部门为院系）" json:"department"`
+	Type                          int8      `gorm:"column:type;type:tinyint;not null;comment:类型 0:所有权限, 1:教务权限..." json:"type"`
+	CreatedAt                     time.Time `gorm:"column:created_at;type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
+	UpdatedAt                     time.Time `gorm:"column:updated_at;type:timestamp;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
 
-	// 现代农业经济管理
-	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100007", "农经1班", "2022", 15, nil)
-	is.operate.InitAdministrativeClass("现代农业学院", "现代农业经济管理", "CC100008", "农经2班", "2022", 18, nil)
+	// 外键关联
+	User         *CsUser       `gorm:"foreignKey:AuthorizedUser;references:UserUUID" json:"user,omitempty"`
+	CsDepartment *CsDepartment `gorm:"foreignKey:Department;references:DepartmentUUID" json:"department_info,omitempty"`
+}
 
-	// 畜牧兽医
-	is.operate.InitAdministrativeClass("现代农业学院", "畜牧兽医", "CC100009", "畜兽1班", "2022", 42, nil)
+// TableName 指定表名
+func (CsAcademicAffairsPermission) TableName() string {
+	return "cs_academic_affairs_permission"
 }

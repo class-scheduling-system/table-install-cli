@@ -29,8 +29,11 @@
 package utils
 
 import (
+	"crypto/sha256"
 	"embed"
+	"encoding/hex"
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"strings"
 )
 
@@ -106,4 +109,22 @@ func Ptr(value string) *string {
 	} else {
 		return &value
 	}
+}
+
+// Encrypt 对密码进行加密处理
+// 1. 先使用 SHA-256 进行哈希
+// 2. 再使用 BCrypt 加盐哈希
+func Encrypt(password string) string {
+	// 先进行 SHA-256 哈希
+	sha256Hasher := sha256.New()
+	sha256Hasher.Write([]byte(password))
+	sha256Hash := hex.EncodeToString(sha256Hasher.Sum(nil))
+
+	// 使用 BCrypt 加盐哈希
+	bcryptHash, err := bcrypt.GenerateFromPassword([]byte(sha256Hash), bcrypt.DefaultCost)
+	if err != nil {
+		return ""
+	}
+
+	return string(bcryptHash)
 }

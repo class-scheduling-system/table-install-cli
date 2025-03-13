@@ -38,8 +38,11 @@ func (is *InitStruct) OperateSetupTeacherAndStudent() {
 	is.operate.InitTeacherData("赵六", "Zhao Liu", "T004", "汉族", true, "教授", "教育艺术学院")
 	is.operate.InitTeacherData("孙七", "Sun Qi", "T005", "汉族", true, "教授", "教育艺术学院")
 	is.operate.InitTeacherData("周八", "Zhou Ba", "T006", "汉族", true, "讲师", "教育艺术学院")
+	is.operate.InitTeacherData("测试教师", " Test Teacher", "T10000", "汉族", true, "教授", "现代农业学院")
 
 	// 初始化学生数据
+	is.operate.InitStudentData("筱锋", "CC10000", "2022", "现代农业学院", "畜禽智能化养殖", "畜智3班", true)
+
 	// 畜智1班 39名学生
 	for i := 1; i <= 39; i++ {
 		is.operate.InitStudentData(
