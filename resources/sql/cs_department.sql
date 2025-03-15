@@ -72,7 +72,7 @@ CREATE TABLE `cs_department`
     `unit_category`              CHAR(32)     NOT NULL COMMENT '单位类别',
     `unit_type`                  CHAR(32)     NOT NULL COMMENT '单位办别',
     `parent_department`          CHAR(32)     NULL COMMENT '上级部门',
-    `assigned_teaching_building` CHAR(32)     NULL COMMENT '分配教学楼',
+    `assigned_teaching_building` JSON         NULL COMMENT '分配教学楼',
     `is_teaching_college`        BOOLEAN      NOT NULL DEFAULT TRUE COMMENT '开课院系',
     `is_attending_college`       BOOLEAN      NOT NULL DEFAULT TRUE COMMENT '上课院系',
     `fixed_phone`                VARCHAR(32)  NULL COMMENT '固定电话',
@@ -108,7 +108,4 @@ ALTER TABLE `cs_department`
             ON DELETE RESTRICT ON UPDATE CASCADE,
     ADD CONSTRAINT `fk_department_parent_department`
         FOREIGN KEY (`parent_department`) REFERENCES `cs_department` (`department_uuid`)
-            ON DELETE SET NULL ON UPDATE CASCADE,
-    ADD CONSTRAINT `fk_department_assigned_teaching_building`
-        FOREIGN KEY (`assigned_teaching_building`) REFERENCES `cs_building` (`building_uuid`)
             ON DELETE SET NULL ON UPDATE CASCADE;
