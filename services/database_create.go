@@ -70,6 +70,7 @@ func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
 		"cs_student",                     // 学生表
 		"cs_administrative_class",        // 行政班表
 		"cs_scheduling_conflict",         // 排课冲突表
+		"cs_teacher_preferences",         // 教师偏好表
 	}
 
 	// 读取数据库配置

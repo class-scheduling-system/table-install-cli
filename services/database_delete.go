@@ -30,14 +30,16 @@ package services
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/pelletier/go-toml"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"strconv"
 )
 
 // 逆序删除表的顺序
 var tables = []string{
+	"cs_teacher_preferences",         // 教师偏好表
 	"cs_scheduling_conflict",         // 排课冲突表
 	"cs_student",                     // 学生表
 	"cs_grade",                       // 年级表

@@ -44,6 +44,7 @@ func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
 
 	// 初始化数据
 	setupData := setup.NewSetup(operate)
+
 	setupData.OperateSetupOrdinary()
 	setupData.OperateSetupDepartment()
 	setupData.OperateSetupClassroom()
@@ -53,4 +54,5 @@ func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
 	setupData.OperateSetupAdministrativeClass()
 	setupData.OperateSetupTeacherAndStudent()
 	setupData.OperateSetupUser()
+	setupData.OperateSetupSemester()
 }
