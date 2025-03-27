@@ -75,6 +75,7 @@ CREATE TABLE `cs_student`
     COMMENT = '学生表';
 
 CREATE UNIQUE INDEX `uk_student_id` ON `cs_student` (`id`) COMMENT '学号唯一索引';
+CREATE UNIQUE INDEX `uk_student_user_uuid` ON `cs_student` (`user_uuid`) COMMENT '用户主键唯一索引';
 
 -- 添加优化查询的索引
 CREATE INDEX `idx_student_name` ON `cs_student` (`name`) COMMENT '学生姓名索引';
