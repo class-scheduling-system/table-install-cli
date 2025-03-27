@@ -122,7 +122,7 @@ func (is *InitStruct) OperateSetupUser() {
 		Password:   utils.Encrypt("teacher"),
 		Email:      "teacher@x-lf.cn",
 		Phone:      "18888888883",
-		RoleUUID:   getRoleAcademic.RoleUUID,
+		RoleUUID:   getRoleTeacher.RoleUUID,
 		Permission: utils.Ptr("[]"),
 		CreatedAt:  time.Now(),
 		UpdatedAt:  time.Now(),

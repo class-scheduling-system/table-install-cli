@@ -9,7 +9,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -28,8 +28,9 @@
 
 package setup
 
-import "fmt"
-
+// SetupTeacherCourseQualificationData
+//
+// 初始化教师和学生数据
 func (is *InitStruct) OperateSetupTeacherAndStudent() {
 	// 初始化教师数据
 	is.operate.InitTeacherData("张三", "Zhang San", "T001", "汉族", true, "教授", "马克思主义学院")
@@ -38,112 +39,274 @@ func (is *InitStruct) OperateSetupTeacherAndStudent() {
 	is.operate.InitTeacherData("赵六", "Zhao Liu", "T004", "汉族", true, "教授", "教育艺术学院")
 	is.operate.InitTeacherData("孙七", "Sun Qi", "T005", "汉族", true, "教授", "教育艺术学院")
 	is.operate.InitTeacherData("周八", "Zhou Ba", "T006", "汉族", true, "讲师", "教育艺术学院")
-	is.operate.InitTeacherData("测试教师", " Test Teacher", "T10000", "汉族", true, "教授", "现代农业学院")
+	is.operate.InitTeacherData("测试教师", "Test Teacher", "T10000", "汉族", true, "教授", "现代农业学院")
+
+	// 现代农业学院教师
+	is.operate.InitTeacherData("陈明华", "Chen Minghua", "T007", "汉族", true, "教授", "现代农业学院")
+	is.operate.InitTeacherData("林志强", "Lin Zhiqiang", "T008", "汉族", true, "副教授", "现代农业学院")
+	is.operate.InitTeacherData("杨丽娟", "Yang Lijuan", "T009", "汉族", true, "讲师", "现代农业学院")
+	is.operate.InitTeacherData("刘建国", "Liu Jianguo", "T010", "汉族", true, "教授", "现代农业学院")
+	is.operate.InitTeacherData("吴秀英", "Wu Xiuying", "T011", "汉族", true, "副教授", "现代农业学院")
+	is.operate.InitTeacherData("郑伟", "Zheng Wei", "T012", "汉族", true, "讲师", "现代农业学院")
+	is.operate.InitTeacherData("王建军", "Wang Jianjun", "T013", "汉族", true, "教授", "现代农业学院")
+
+	// 马克思主义学院新增教师
+	is.operate.InitTeacherData("黄晓明", "Huang Xiaoming", "T014", "汉族", true, "副教授", "马克思主义学院")
+	is.operate.InitTeacherData("朱丽华", "Zhu Lihua", "T015", "汉族", true, "讲师", "马克思主义学院")
+	is.operate.InitTeacherData("徐国强", "Xu Guoqiang", "T016", "汉族", true, "教授", "马克思主义学院")
+
+	// 教育艺术学院新增教师
+	is.operate.InitTeacherData("马云峰", "Ma Yunfeng", "T017", "汉族", true, "副教授", "教育艺术学院")
+	is.operate.InitTeacherData("韩雪梅", "Han Xuemei", "T018", "汉族", true, "讲师", "教育艺术学院")
+	is.operate.InitTeacherData("董志远", "Dong Zhiyuan", "T019", "汉族", true, "教授", "教育艺术学院")
 
 	// 初始化学生数据
-	is.operate.InitStudentData("筱锋", "CC10000", "2022", "现代农业学院", "畜禽智能化养殖", "畜智3班", true)
+	is.operate.InitStudentData("筱锋", "CC100000", "2022", "现代农业学院", "畜禽智能化养殖", "畜智3班", true)
 
 	// 畜智1班 39名学生
-	for i := 1; i <= 39; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("李%d", i),
-			fmt.Sprintf("CC100001S%03d", i),
-			"2022",
-			"现代农业学院",
-			"畜禽智能化养殖",
-			"畜智1班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("李明", "CC100001S001", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李芳", "CC100001S002", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李建国", "CC100001S003", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李雪梅", "CC100001S004", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李强", "CC100001S005", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李婷婷", "CC100001S006", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李伟", "CC100001S007", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李秀英", "CC100001S008", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李志强", "CC100001S009", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李丽", "CC100001S010", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李军", "CC100001S011", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李燕", "CC100001S012", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李鹏", "CC100001S013", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李红梅", "CC100001S014", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李刚", "CC100001S015", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李玉华", "CC100001S016", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李涛", "CC100001S017", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李春梅", "CC100001S018", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李浩", "CC100001S019", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李颖", "CC100001S020", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李超", "CC100001S021", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李晓燕", "CC100001S022", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李阳", "CC100001S023", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李慧", "CC100001S024", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李建华", "CC100001S025", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李雪", "CC100001S026", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李峰", "CC100001S027", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李玲", "CC100001S028", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李建军", "CC100001S029", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李芳芳", "CC100001S030", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李磊", "CC100001S031", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李丹", "CC100001S032", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李勇", "CC100001S033", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李倩", "CC100001S034", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李波", "CC100001S035", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李莉", "CC100001S036", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李洋", "CC100001S037", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
+	is.operate.InitStudentData("李琳", "CC100001S038", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", false)
+	is.operate.InitStudentData("李晓明", "CC100001S039", "2022", "现代农业学院", "畜禽智能化养殖", "畜智1班", true)
 
 	// 畜智2班 20名学生
-	for i := 1; i <= 20; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("王%d", i),
-			fmt.Sprintf("CC100002S%03d", i),
-			"2022",
-			"现代农业学院",
-			"畜禽智能化养殖",
-			"畜智2班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("王建", "CC100002S001", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王丽娟", "CC100002S002", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王志明", "CC100002S003", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王秀兰", "CC100002S004", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王俊杰", "CC100002S005", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王雪梅", "CC100002S006", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王小军", "CC100002S007", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王淑华", "CC100002S008", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王宇", "CC100002S009", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王婷", "CC100002S010", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王鑫", "CC100002S011", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王欣", "CC100002S012", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王辉", "CC100002S013", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王玉梅", "CC100002S014", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王飞", "CC100002S015", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王红艳", "CC100002S016", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王凯", "CC100002S017", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王丹丹", "CC100002S018", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
+	is.operate.InitStudentData("王龙", "CC100002S019", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", true)
+	is.operate.InitStudentData("王雪琴", "CC100002S020", "2022", "现代农业学院", "畜禽智能化养殖", "畜智2班", false)
 
 	// 棉经1班 39名学生
-	for i := 1; i <= 39; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("张%d", i),
-			fmt.Sprintf("CC100003S%03d", i),
-			"2022",
-			"现代农业学院",
-			"棉花加工与经营管理",
-			"棉经1班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("张建国", "CC100003S001", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张丽娟", "CC100003S002", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张志明", "CC100003S003", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张秀兰", "CC100003S004", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张俊杰", "CC100003S005", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张雪梅", "CC100003S006", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张小军", "CC100003S007", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张淑华", "CC100003S008", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张宇", "CC100003S009", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张婷", "CC100003S010", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张鑫", "CC100003S011", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张欣", "CC100003S012", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张辉", "CC100003S013", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张玉梅", "CC100003S014", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张飞", "CC100003S015", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张红艳", "CC100003S016", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张凯", "CC100003S017", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张丹丹", "CC100003S018", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张龙", "CC100003S019", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张雪琴", "CC100003S020", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张伟", "CC100003S021", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张燕", "CC100003S022", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张强", "CC100003S023", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张丽丽", "CC100003S024", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张浩", "CC100003S025", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张春梅", "CC100003S026", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张阳", "CC100003S027", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张秀英", "CC100003S028", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张磊", "CC100003S029", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张玉英", "CC100003S030", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张涛", "CC100003S031", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张红", "CC100003S032", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张勇", "CC100003S033", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张倩倩", "CC100003S034", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张超", "CC100003S035", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张莉莉", "CC100003S036", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张洋", "CC100003S037", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
+	is.operate.InitStudentData("张琳", "CC100003S038", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", false)
+	is.operate.InitStudentData("张晓明", "CC100003S039", "2022", "现代农业学院", "棉花加工与经营管理", "棉经1班", true)
 
 	// 棉经2班 16名学生
-	for i := 1; i <= 16; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("刘%d", i),
-			fmt.Sprintf("CC100004S%03d", i),
-			"2022",
-			"现代农业学院",
-			"棉花加工与经营管理",
-			"棉经2班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("刘建国", "CC100004S001", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘丽娟", "CC100004S002", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘志明", "CC100004S003", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘秀兰", "CC100004S004", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘俊杰", "CC100004S005", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘雪梅", "CC100004S006", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘小军", "CC100004S007", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘淑华", "CC100004S008", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘宇", "CC100004S009", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘婷", "CC100004S010", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘鑫", "CC100004S011", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘欣", "CC100004S012", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘辉", "CC100004S013", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘玉梅", "CC100004S014", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
+	is.operate.InitStudentData("刘飞", "CC100004S015", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", true)
+	is.operate.InitStudentData("刘红艳", "CC100004S016", "2022", "现代农业学院", "棉花加工与经营管理", "棉经2班", false)
 
 	// 棉经3班 42名学生
-	for i := 1; i <= 42; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("陈%d", i),
-			fmt.Sprintf("CC100005S%03d", i),
-			"2022",
-			"现代农业学院",
-			"棉花加工与经营管理",
-			"棉经3班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("陈建军", "CC100005S001", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈丽华", "CC100005S002", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈志强", "CC100005S003", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈秀英", "CC100005S004", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈国强", "CC100005S005", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈玉梅", "CC100005S006", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈伟", "CC100005S007", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈春梅", "CC100005S008", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈建华", "CC100005S009", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈丽", "CC100005S010", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈强", "CC100005S011", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈燕", "CC100005S012", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈鹏", "CC100005S013", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈红", "CC100005S014", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈军", "CC100005S015", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈玉华", "CC100005S016", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈涛", "CC100005S017", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈秀兰", "CC100005S018", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈浩", "CC100005S019", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈颖", "CC100005S020", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈超", "CC100005S021", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈晓燕", "CC100005S022", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈阳", "CC100005S023", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈慧", "CC100005S024", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈建", "CC100005S025", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈雪", "CC100005S026", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈峰", "CC100005S027", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈玲", "CC100005S028", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈建平", "CC100005S029", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈芳", "CC100005S030", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈磊", "CC100005S031", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈丹", "CC100005S032", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈勇", "CC100005S033", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈倩", "CC100005S034", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈波", "CC100005S035", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈莉", "CC100005S036", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈洋", "CC100005S037", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈琳", "CC100005S038", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈晓华", "CC100005S039", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈明", "CC100005S040", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
+	is.operate.InitStudentData("陈刚", "CC100005S041", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", true)
+	is.operate.InitStudentData("陈婷婷", "CC100005S042", "2022", "现代农业学院", "棉花加工与经营管理", "棉经3班", false)
 
 	// 农经1班 15名学生
-	for i := 1; i <= 15; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("赵%d", i),
-			fmt.Sprintf("CC100006S%03d", i),
-			"2022",
-			"现代农业学院",
-			"现代农业经济管理",
-			"农经1班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("赵建国", "CC100006S001", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵丽娟", "CC100006S002", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵志明", "CC100006S003", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵秀兰", "CC100006S004", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵俊杰", "CC100006S005", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵雪梅", "CC100006S006", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵小军", "CC100006S007", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵淑华", "CC100006S008", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵宇", "CC100006S009", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵婷", "CC100006S010", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵鑫", "CC100006S011", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵欣", "CC100006S012", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵辉", "CC100006S013", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
+	is.operate.InitStudentData("赵玉梅", "CC100006S014", "2022", "现代农业学院", "现代农业经济管理", "农经1班", false)
+	is.operate.InitStudentData("赵飞", "CC100006S015", "2022", "现代农业学院", "现代农业经济管理", "农经1班", true)
 
 	// 农经2班 18名学生
-	for i := 1; i <= 18; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("黄%d", i),
-			fmt.Sprintf("CC100007S%03d", i),
-			"2022",
-			"现代农业学院",
-			"现代农业经济管理",
-			"农经2班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("黄建军", "CC100007S001", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄丽华", "CC100007S002", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄志强", "CC100007S003", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄秀英", "CC100007S004", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄国强", "CC100007S005", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄玉梅", "CC100007S006", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄伟", "CC100007S007", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄春梅", "CC100007S008", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄建华", "CC100007S009", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄丽", "CC100007S010", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄强", "CC100007S011", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄燕", "CC100007S012", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄鹏", "CC100007S013", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄红", "CC100007S014", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄军", "CC100007S015", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄玉华", "CC100007S016", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
+	is.operate.InitStudentData("黄涛", "CC100007S017", "2022", "现代农业学院", "现代农业经济管理", "农经2班", true)
+	is.operate.InitStudentData("黄秀兰", "CC100007S018", "2022", "现代农业学院", "现代农业经济管理", "农经2班", false)
 
 	// 畜兽1班 42名学生
-	for i := 1; i <= 42; i++ {
-		is.operate.InitStudentData(
-			fmt.Sprintf("周%d", i),
-			fmt.Sprintf("CC100008S%03d", i),
-			"2022",
-			"现代农业学院",
-			"畜牧兽医",
-			"畜兽1班",
-			i%2 == 1,
-		)
-	}
+	is.operate.InitStudentData("周建军", "CC100008S001", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周丽华", "CC100008S002", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周志强", "CC100008S003", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周秀英", "CC100008S004", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周国强", "CC100008S005", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周玉梅", "CC100008S006", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周伟", "CC100008S007", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周春梅", "CC100008S008", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周建华", "CC100008S009", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周丽", "CC100008S010", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周强", "CC100008S011", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周燕", "CC100008S012", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周鹏", "CC100008S013", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周红", "CC100008S014", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周军", "CC100008S015", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周玉华", "CC100008S016", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周涛", "CC100008S017", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周秀兰", "CC100008S018", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周浩", "CC100008S019", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周颖", "CC100008S020", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周超", "CC100008S021", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周晓燕", "CC100008S022", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周阳", "CC100008S023", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周慧", "CC100008S024", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周建", "CC100008S025", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周雪", "CC100008S026", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周峰", "CC100008S027", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周玲", "CC100008S028", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周建平", "CC100008S029", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周芳", "CC100008S030", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周磊", "CC100008S031", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周丹", "CC100008S032", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周勇", "CC100008S033", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周倩", "CC100008S034", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周波", "CC100008S035", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周莉", "CC100008S036", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周洋", "CC100008S037", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周琳", "CC100008S038", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周晓华", "CC100008S039", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周明", "CC100008S040", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
+	is.operate.InitStudentData("周刚", "CC100008S041", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", true)
+	is.operate.InitStudentData("周婷婷", "CC100008S042", "2022", "现代农业学院", "畜牧兽医", "畜兽1班", false)
 }
