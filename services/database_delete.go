@@ -39,6 +39,7 @@ import (
 
 // 逆序删除表的顺序
 var tables = []string{
+	"cs_request_log",                  // 请求日志表
 	"cs_teacher_course_qualification", // 教师课程资格表
 	"cs_teacher_preferences",          // 教师偏好表
 	"cs_scheduling_conflict",          // 排课冲突表
