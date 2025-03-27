@@ -30,7 +30,7 @@ USE `class-scheduling-system`;
 
 CREATE TABLE `cs_teacher_course_qualification`
 (
-    `qualification_uuid` CHAR(32)    NOT NULL PRIMARY KEY COMMENT '资格主键',
+    `qualification_uuid` CHAR(32)    NOT NULL COMMENT '资格主键',
     `teacher_uuid`      CHAR(32)    NOT NULL COMMENT '教师主键',
     `course_uuid`       CHAR(32)    NOT NULL COMMENT '课程主键',
     `qualification_level` TINYINT    NOT NULL DEFAULT 1 COMMENT '资格等级 1:初级 2:中级 3:高级',
@@ -41,14 +41,11 @@ CREATE TABLE `cs_teacher_course_qualification`
     `approved_by`       CHAR(32)    NULL COMMENT '审核人',
     `approved_at`       TIMESTAMP   NULL COMMENT '审核时间',
     `created_at`        TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updated_at`        TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+    `updated_at`        TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`qualification_uuid`, `teacher_uuid`, `course_uuid`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci COMMENT '教师课程资格表';
-
--- 创建唯一索引确保教师和课程的组合唯一
-CREATE UNIQUE INDEX `uk_teacher_course` ON `cs_teacher_course_qualification` (`teacher_uuid`, `course_uuid`) 
-    COMMENT '教师课程唯一索引';
 
 -- 添加优化查询的索引
 CREATE INDEX `idx_qualification_teacher` ON `cs_teacher_course_qualification` (`teacher_uuid`) 
