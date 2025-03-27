@@ -9,7 +9,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -26,35 +26,27 @@
  * --------------------------------------------------------------------------------
  */
 
-package services
+package do
 
-import (
-	"embed"
-	"frontleaves-table-install-cli/database"
-	"frontleaves-table-install-cli/services/setup"
+import "time"
 
-	"github.com/pelletier/go-toml"
-)
+// CsTeacherCourseQualification 教师课程资格表
+type CsTeacherCourseQualification struct {
+	QualificationUUID  string    `gorm:"column:qualification_uuid;primary_key"`
+	TeacherUUID        string    `gorm:"column:teacher_uuid;not null"`
+	CourseUUID         string    `gorm:"column:course_uuid;not null"`
+	QualificationLevel int       `gorm:"column:qualification_level;not null;default:1"`
+	IsPrimary          bool      `gorm:"column:is_primary;not null;default:false"`
+	TeachYears         int       `gorm:"column:teach_years;not null;default:0"`
+	Status             int       `gorm:"column:status;not null;default:1"`
+	Remarks            string    `gorm:"column:remarks"`
+	ApprovedBy         string    `gorm:"column:approved_by"`
+	ApprovedAt         time.Time `gorm:"column:approved_at"`
+	CreatedAt          time.Time `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP"`
+	UpdatedAt          time.Time `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+}
 
-func InitDatabase(config *toml.Tree, resourcesFile embed.FS) {
-	// 初始化数据库
-	CreateDatabase(config, resourcesFile)
-
-	// 数据操作函数
-	operate := database.NewDatabaseOperate(config)
-
-	// 初始化数据
-	setupData := setup.NewSetup(operate)
-
-	setupData.OperateSetupOrdinary()
-	setupData.OperateSetupDepartment()
-	setupData.OperateSetupClassroom()
-	setupData.OperateSetupMajor()
-	setupData.OperateSetupCourse()
-	setupData.OperateSetupGrade()
-	setupData.OperateSetupAdministrativeClass()
-	setupData.OperateSetupTeacherAndStudent()
-	setupData.OperateSetupUser()
-	setupData.OperateSetupSemester()
-	setupData.OperateSetupTeacherCourseQualification()
+// TableName 设置表名
+func (CsTeacherCourseQualification) TableName() string {
+	return "cs_teacher_course_qualification"
 }

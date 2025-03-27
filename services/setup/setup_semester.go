@@ -29,7 +29,6 @@
 package setup
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -71,8 +70,6 @@ func (is *InitStruct) OperateSetupSemester() {
 		time.Date(2024, 7, 10, 0, 0, 0, 0, time.Local),
 		true, // 当前学期
 	)
-
-	fmt.Println("开始初始化教师喜好数据...")
 
 	// 为张三老师添加喜好数据
 	is.operate.InitTeacherPreferencesData("张三", semester2024Spring, 1, 1, 5, "早上第一节精力充沛") // 周一第一节课
