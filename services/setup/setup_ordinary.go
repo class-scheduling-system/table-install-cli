@@ -9,7 +9,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -156,6 +156,13 @@ func (is *InitStruct) OperateSetupOrdinary() {
 	// 初始化 cs_unit_type 数据表
 	is.operate.InitUnitTypeData("直属（校办）", utils.Ptr("DirectlyUnder(SchoolOffice)"), utils.Ptr("直属"))
 	is.operate.InitUnitTypeData("校企合办", utils.Ptr("SchoolEnterpriseJointly"), utils.Ptr("校企"))
+
+	// 初始化 cs_credit_hour_type 数据表
+	is.operate.InitCreditHourTypeData("理论学时", utils.Ptr("课程的理论教学部分所占用的学时"))
+	is.operate.InitCreditHourTypeData("实验学时", utils.Ptr("课程的实验教学部分所占用的学时"))
+	is.operate.InitCreditHourTypeData("上机学时", utils.Ptr("课程的计算机实践部分所占用的学时"))
+	is.operate.InitCreditHourTypeData("实践学时", utils.Ptr("课程的实践教学部分所占用的学时"))
+	is.operate.InitCreditHourTypeData("其他学时", utils.Ptr("课程的其他教学活动所占用的学时"))
 
 	// 初始化 cs_permission 数据表
 	is.operate.PermissionData("operate", "所有系统操作权限", utils.Ptr("有关操作的所有权限，一般是系统权限相关"))
