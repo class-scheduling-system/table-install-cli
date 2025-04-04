@@ -9,7 +9,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -82,8 +82,8 @@ SELECT
     sc.conflict_type,
     sc.description,
     sc.resolution_status,
-    ca1.teaching_class_name AS first_class_name,
-    ca2.teaching_class_name AS second_class_name,
+    tc1.teaching_class_name AS first_class_name,
+    tc2.teaching_class_name AS second_class_name,
     t1.name AS first_teacher_name,
     t2.name AS second_teacher_name,
     cr1.name AS first_classroom_name,
@@ -94,6 +94,8 @@ FROM
     `cs_scheduling_conflict` sc
     JOIN `cs_class_assignment` ca1 ON sc.first_assignment_uuid = ca1.class_assignment_uuid
     JOIN `cs_class_assignment` ca2 ON sc.second_assignment_uuid = ca2.class_assignment_uuid
+    JOIN `cs_teaching_class` tc1 ON ca1.teaching_class_uuid = tc1.teaching_class_uuid
+    JOIN `cs_teaching_class` tc2 ON ca2.teaching_class_uuid = tc2.teaching_class_uuid
     JOIN `cs_teacher` t1 ON ca1.teacher_uuid = t1.teacher_uuid
     JOIN `cs_teacher` t2 ON ca2.teacher_uuid = t2.teacher_uuid
     JOIN `cs_classroom` cr1 ON ca1.classroom_uuid = cr1.classroom_uuid

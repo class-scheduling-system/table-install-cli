@@ -35,7 +35,6 @@ CREATE TABLE `cs_administrative_class`
     `class_code`                VARCHAR(32)  NOT NULL COMMENT '班级编号',
     `class_name`                VARCHAR(64)  NOT NULL COMMENT '班级名称',
     `grade_uuid`                CHAR(32)     NOT NULL COMMENT '年级UUID',
-    `is_administrative`         BOOLEAN      NOT NULL DEFAULT TRUE COMMENT '是否为行政班(0:否[虚拟班],1:是[行政班])',
     `student_count`             INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '学生人数',
     `counselor_uuid`            CHAR(32)     NULL COMMENT '辅导员UUID',
     `monitor_uuid`              CHAR(32)     NULL COMMENT '班长UUID',

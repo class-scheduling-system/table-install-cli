@@ -9,7 +9,7 @@
  *
  * 版权所有 (c) 2022-2025 锋楪技术团队。保留所有权利。
  *
- * 本软件是“按原样”提供的，没有任何形式的明示或暗示的保证，包括但不限于
+ * 本软件是"按原样"提供的，没有任何形式的明示或暗示的保证，包括但不限于
  * 对适销性、特定用途的适用性和非侵权性的暗示保证。在任何情况下，
  * 作者或版权持有人均不承担因软件或软件的使用或其他交易而产生的、
  * 由此引起的或以任何方式与此软件有关的任何索赔、损害或其他责任。
@@ -32,10 +32,11 @@ import (
 	"embed"
 	"fmt"
 	"frontleaves-table-install-cli/utils"
+	"strconv"
+
 	"github.com/pelletier/go-toml"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"strconv"
 )
 
 func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
@@ -65,10 +66,11 @@ func CreateDatabase(config *toml.Tree, resourcesFile embed.FS) {
 		"cs_teacher",                      // 教师表
 		"cs_course_library",               // 课程库表
 		"cs_academic_affairs_permission",  // 教务权限表
-		"cs_class_assignment",             // 排课表
 		"cs_grade",                        // 年级表
 		"cs_student",                      // 学生表
 		"cs_administrative_class",         // 行政班表
+		"cs_teaching_class",               // 教学班表
+		"cs_class_assignment",             // 排课表
 		"cs_scheduling_conflict",          // 排课冲突表
 		"cs_teacher_preferences",          // 教师偏好表
 		"cs_teacher_course_qualification", // 教师课程资格表
